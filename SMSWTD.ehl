@@ -1,3 +1,5 @@
 [Op Calls]
 [Events]
+itsSMSWTD->GEN(eventSMSWTDOff())`SMSWTD
+itsSMSWTD->GEN(evSMSWTDOn())`SMSWTD
 [Breakpoints]
