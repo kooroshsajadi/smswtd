@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: UnderwaterSeismicSensorNetwork
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\UnderwaterSeismicSensorNetwork.cpp
 *********************************************************************/
 
@@ -27,7 +27,7 @@
 
 #define SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_readSensorsData_SERIALIZE OM_NO_OP
 
-#define SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_readUnderwaterSensorsData_SERIALIZE OM_NO_OP
+#define SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_returnUnderwaterSensorsData_SERIALIZE OM_NO_OP
 //#]
 
 //## package SMSTWD_ARCH
@@ -50,12 +50,50 @@ SensorDataInterface* UnderwaterSeismicSensorNetwork::port_Ocean_C::getItsSensorD
     return this;
 }
 
-underwaterSensorData UnderwaterSeismicSensorNetwork::port_Ocean_C::readUnderwaterSensorsData(void) {
+underwaterSensorData UnderwaterSeismicSensorNetwork::port_Ocean_C::returnUnderwaterSensorsData(void) {
     underwaterSensorData res;
     if (itsSensorDataInterface != NULL) {
-        res = itsSensorDataInterface->readUnderwaterSensorsData();
+        res = itsSensorDataInterface->returnUnderwaterSensorsData();
     }
     return res;
+}
+
+bool UnderwaterSeismicSensorNetwork::port_Ocean_C::send(IOxfEvent* event, const IOxfEventGenerationParams& params) {
+    bool res = false;
+    if (event != NULL) {
+        event->setPort(this);
+        if (itsSensorDataInterface != NULL) {
+            if (event->isTypeOf(redoSensing_SMSTWD_ARCH_id)) {
+                res = itsSensorDataInterface->send(event, params);
+            }
+            else if (event->isTypeOf(startSensing_SMSTWD_ARCH_id)) {
+                res = itsSensorDataInterface->send(event, params);
+            }
+            else {// Interface SensorDataInterface does not support any other events
+            }
+        }
+    }
+    return res;
+    
+}
+
+bool UnderwaterSeismicSensorNetwork::port_Ocean_C::send(IOxfEvent* event) {
+    bool res = false;
+    if (event != NULL) {
+        event->setPort(this);
+        if (itsSensorDataInterface != NULL) {
+            if (event->isTypeOf(redoSensing_SMSTWD_ARCH_id)) {
+                res = itsSensorDataInterface->send(event);
+            }
+            else if (event->isTypeOf(startSensing_SMSTWD_ARCH_id)) {
+                res = itsSensorDataInterface->send(event);
+            }
+            else {// Interface SensorDataInterface does not support any other events
+            }
+        }
+    }
+    return res;
+    
 }
 
 void UnderwaterSeismicSensorNetwork::port_Ocean_C::setItsSensorDataInterface(SensorDataInterface* const p_SensorDataInterface) {
@@ -70,7 +108,7 @@ void UnderwaterSeismicSensorNetwork::port_Ocean_C::cleanUpRelations(void) {
 }
 //#]
 
-UnderwaterSeismicSensorNetwork::UnderwaterSeismicSensorNetwork(IOxfActive* const theActiveContext) : OMReactive(), SensorDataInterface(), horizontalAcceleration(20), verticalAcceleration(20), itsSMSWTD(NULL) {
+UnderwaterSeismicSensorNetwork::UnderwaterSeismicSensorNetwork(IOxfActive* const theActiveContext) : SensorDataInterface(), itsSMSWTD(NULL) {
     NOTIFY_REACTIVE_CONSTRUCTOR(UnderwaterSeismicSensorNetwork, UnderwaterSeismicSensorNetwork(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_UnderwaterSeismicSensorNetwork_SERIALIZE);
     setActiveContext(theActiveContext, false);
     initRelations();
@@ -80,45 +118,45 @@ UnderwaterSeismicSensorNetwork::UnderwaterSeismicSensorNetwork(IOxfActive* const
 UnderwaterSeismicSensorNetwork::~UnderwaterSeismicSensorNetwork(void) {
     NOTIFY_DESTRUCTOR(~UnderwaterSeismicSensorNetwork, false);
     cleanUpRelations();
-    cancelTimeouts();
 }
 
-int UnderwaterSeismicSensorNetwork::getHorizontalAcceleration(void) {
+underwaterSensorData UnderwaterSeismicSensorNetwork::returnUnderwaterSensorsData(void) {
+    NOTIFY_OPERATION(returnUnderwaterSensorsData, returnUnderwaterSensorsData(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_returnUnderwaterSensorsData_SERIALIZE);
+    //#[ operation returnUnderwaterSensorsData()
+    underwaterSensorData data;
+    
+    data.horizontalAcceleration = horizontalAcceleration;
+    data.verticalAcceleration = verticalAcceleration;
+    
+    return data;
+    //#]
+}
+
+void UnderwaterSeismicSensorNetwork::getHorizontalAcceleration(void) {
     NOTIFY_OPERATION(getHorizontalAcceleration, getHorizontalAcceleration(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_getHorizontalAcceleration_SERIALIZE);
     //#[ operation getHorizontalAcceleration()
-    return horizontalAcceleration;
+    // Generate values from 0 to 1000 mm/s² (0 to 1.0 m/s²)
+    this->horizontalAcceleration = std::rand() % 1001; // 0-1000 mm/s²
+    
     //#]
 }
 
-int UnderwaterSeismicSensorNetwork::getVerticalAcceleration(void) {
+void UnderwaterSeismicSensorNetwork::getVerticalAcceleration(void) {
     NOTIFY_OPERATION(getVerticalAcceleration, getVerticalAcceleration(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_getVerticalAcceleration_SERIALIZE);
     //#[ operation getVerticalAcceleration()
-    return verticalAcceleration;
+    // Generate values from 0 to 1000 mm/s² (0 to 1.0 m/s²
+    this->verticalAcceleration = std::rand() % 1001;   // 0-1000 mm/s²
+    
     //#]
 }
 
-underwaterSensorData UnderwaterSeismicSensorNetwork::readUnderwaterSensorsData(void) {
-    NOTIFY_OPERATION(readUnderwaterSensorsData, readUnderwaterSensorsData(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_readUnderwaterSensorsData_SERIALIZE);
-    //#[ operation readUnderwaterSensorsData()
-    return readSensorsData();
-    //#]
-}
-
-underwaterSensorData UnderwaterSeismicSensorNetwork::readSensorsData(void) {
+void UnderwaterSeismicSensorNetwork::readSensorsData(void) {
     NOTIFY_OPERATION(readSensorsData, readSensorsData(), 0, SMSTWD_ARCH_UnderwaterSeismicSensorNetwork_readSensorsData_SERIALIZE);
     //#[ operation readSensorsData()
-    underwaterSensorData newData;
+    std::cout << "Reading underwater sensors data!" << std::endl;
     
-    // Read sensors data.
-    // Generate values from 0 to 1000 mm/s² (0 to 1.0 m/s²)
-    newData.horizontalAcceleration = std::rand() % 1001; // 0-1000 mm/s²
-    newData.verticalAcceleration = std::rand() % 1001;   // 0-1000 mm/s²
-    
-    // Update sensors data.
-    this->horizontalAcceleration = newData.horizontalAcceleration;
-    this->verticalAcceleration = newData.verticalAcceleration;
-    
-    return newData;
+    getHorizontalAcceleration();
+    getVerticalAcceleration();
     //#]
 }
 
@@ -152,16 +190,6 @@ void UnderwaterSeismicSensorNetwork::setItsSMSWTD(SMSWTD* const p_SMSWTD) {
     _setItsSMSWTD(p_SMSWTD);
 }
 
-bool UnderwaterSeismicSensorNetwork::cancelTimeout(const IOxfTimeout* arg) {
-    bool res = false;
-    if(rootState_timeout == arg)
-        {
-            rootState_timeout = NULL;
-            res = true;
-        }
-    return res;
-}
-
 bool UnderwaterSeismicSensorNetwork::startBehavior(void) {
     bool done = false;
     done = OMReactive::startBehavior();
@@ -177,7 +205,6 @@ void UnderwaterSeismicSensorNetwork::initRelations(void) {
 void UnderwaterSeismicSensorNetwork::initStatechart(void) {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
-    rootState_timeout = NULL;
 }
 
 void UnderwaterSeismicSensorNetwork::cleanUpRelations(void) {
@@ -191,10 +218,6 @@ void UnderwaterSeismicSensorNetwork::cleanUpRelations(void) {
                 }
             itsSMSWTD = NULL;
         }
-}
-
-void UnderwaterSeismicSensorNetwork::cancelTimeouts(void) {
-    cancel(rootState_timeout);
 }
 
 void UnderwaterSeismicSensorNetwork::__setItsSMSWTD(SMSWTD* const p_SMSWTD) {
@@ -247,18 +270,14 @@ IOxfReactive::TakeEventStatus UnderwaterSeismicSensorNetwork::rootState_processE
                     NOTIFY_TRANSITION_STARTED("2");
                     NOTIFY_STATE_EXITED("ROOT.Idle");
                     //#[ transition 2 
-                    std::cout << "Initiating undewater sensing..." << std::endl;
-                    //readSensorsData();
+                    std::cout << "Underwater sensing is on!" << std::endl;
                     //#]
                     NOTIFY_STATE_ENTERED("ROOT.Sampling");
                     rootState_subState = Sampling;
                     rootState_active = Sampling;
                     //#[ state Sampling.(Entry) 
-                    std::cout << "Underwater sensing is on!" << std::endl;
-                    
                     readSensorsData();
                     //#]
-                    rootState_timeout = scheduleTimeout(2000, "ROOT.Sampling");
                     NOTIFY_TRANSITION_TERMINATED("2");
                     res = eventConsumed;
                 }
@@ -271,7 +290,6 @@ IOxfReactive::TakeEventStatus UnderwaterSeismicSensorNetwork::rootState_processE
             if(IS_EVENT_TYPE_OF(stopSensing_SMSTWD_ARCH_id) == 1)
                 {
                     NOTIFY_TRANSITION_STARTED("1");
-                    cancel(rootState_timeout);
                     NOTIFY_STATE_EXITED("ROOT.Sampling");
                     //#[ transition 1 
                     std::cout << "Stopping underwater sensing..." << std::endl;
@@ -286,45 +304,21 @@ IOxfReactive::TakeEventStatus UnderwaterSeismicSensorNetwork::rootState_processE
                     res = eventConsumed;
                 }
             else {
-                if(IS_EVENT_TYPE_OF(OMTimeoutEventId) == 1)
+                if(IS_EVENT_TYPE_OF(redoSensing_SMSTWD_ARCH_id) == 1)
                     {
-                        if(getCurrentEvent() == rootState_timeout)
-                            {
-                                NOTIFY_TRANSITION_STARTED("3");
-                                cancel(rootState_timeout);
-                                NOTIFY_STATE_EXITED("ROOT.Sampling");
-                                NOTIFY_STATE_ENTERED("ROOT.underwaterSensorsTimeEvent");
-                                pushNullTransition();
-                                rootState_subState = underwaterSensorsTimeEvent;
-                                rootState_active = underwaterSensorsTimeEvent;
-                                NOTIFY_TRANSITION_TERMINATED("3");
-                                res = eventConsumed;
-                            }
+                        NOTIFY_TRANSITION_STARTED("3");
+                        NOTIFY_STATE_EXITED("ROOT.Sampling");
+                        NOTIFY_STATE_ENTERED("ROOT.Sampling");
+                        rootState_subState = Sampling;
+                        rootState_active = Sampling;
+                        //#[ state Sampling.(Entry) 
+                        readSensorsData();
+                        //#]
+                        NOTIFY_TRANSITION_TERMINATED("3");
+                        res = eventConsumed;
                     }
                 }
                 
-            
-        }
-        break;
-        case underwaterSensorsTimeEvent:
-        {
-            if(IS_EVENT_TYPE_OF(OMNullEventId) == 1)
-                {
-                    NOTIFY_TRANSITION_STARTED("4");
-                    popNullTransition();
-                    NOTIFY_STATE_EXITED("ROOT.underwaterSensorsTimeEvent");
-                    NOTIFY_STATE_ENTERED("ROOT.Sampling");
-                    rootState_subState = Sampling;
-                    rootState_active = Sampling;
-                    //#[ state Sampling.(Entry) 
-                    std::cout << "Underwater sensing is on!" << std::endl;
-                    
-                    readSensorsData();
-                    //#]
-                    rootState_timeout = scheduleTimeout(2000, "ROOT.Sampling");
-                    NOTIFY_TRANSITION_TERMINATED("4");
-                    res = eventConsumed;
-                }
             
         }
         break;
@@ -364,18 +358,9 @@ void OMAnimatedUnderwaterSeismicSensorNetwork::rootState_serializeStates(AOMSSta
             Sampling_serializeStates(aomsState);
         }
         break;
-        case UnderwaterSeismicSensorNetwork::underwaterSensorsTimeEvent:
-        {
-            underwaterSensorsTimeEvent_serializeStates(aomsState);
-        }
-        break;
         default:
             break;
     }
-}
-
-void OMAnimatedUnderwaterSeismicSensorNetwork::underwaterSensorsTimeEvent_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.underwaterSensorsTimeEvent");
 }
 
 void OMAnimatedUnderwaterSeismicSensorNetwork::Sampling_serializeStates(AOMSState* aomsState) const {

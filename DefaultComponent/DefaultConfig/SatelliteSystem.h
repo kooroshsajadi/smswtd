@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SatelliteSystem
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SatelliteSystem.h
 *********************************************************************/
 
@@ -17,14 +17,6 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
-//## auto_generated
-#include <omthread.h>
-//## auto_generated
-#include <omreactive.h>
-//## auto_generated
-#include <state.h>
-//## auto_generated
-#include <event.h>
 //## class SatelliteSystem
 #include "SatelliteDataInterface.h"
 //## link itsSMSWTD
@@ -33,7 +25,7 @@ class SMSWTD;
 //## package SMSTWD_ARCH
 
 //## class SatelliteSystem
-class SatelliteSystem : public OMReactive, public SatelliteDataInterface {
+class SatelliteSystem : public SatelliteDataInterface {
 public :
 
 //#[ ignore
@@ -59,6 +51,12 @@ public :
         
         //## auto_generated
         virtual satelliteData readSatelliteData(void);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
         
         ////    Additional operations    ////
         

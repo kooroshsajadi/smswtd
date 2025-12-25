@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: UnderwaterSeismicSensorNetwork
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\UnderwaterSeismicSensorNetwork.h
 *********************************************************************/
 
@@ -17,14 +17,6 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
-//## auto_generated
-#include <omthread.h>
-//## auto_generated
-#include <omreactive.h>
-//## auto_generated
-#include <state.h>
-//## auto_generated
-#include <event.h>
 //## class UnderwaterSeismicSensorNetwork
 #include "SensorDataInterface.h"
 //## link itsSMSWTD
@@ -33,7 +25,7 @@ class SMSWTD;
 //## package SMSTWD_ARCH
 
 //## class UnderwaterSeismicSensorNetwork
-class UnderwaterSeismicSensorNetwork : public OMReactive, public SensorDataInterface {
+class UnderwaterSeismicSensorNetwork : public SensorDataInterface {
 public :
 
 //#[ ignore
@@ -58,7 +50,13 @@ public :
         SensorDataInterface* getItsSensorDataInterface(void);
         
         //## auto_generated
-        virtual underwaterSensorData readUnderwaterSensorsData(void);
+        virtual underwaterSensorData returnUnderwaterSensorsData(void);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
         
         ////    Additional operations    ////
         
@@ -98,19 +96,19 @@ public :
     
     ////    Operations    ////
     
-    //## operation getHorizontalAcceleration()
-    virtual int getHorizontalAcceleration(void);
-    
-    //## operation getVerticalAcceleration()
-    virtual int getVerticalAcceleration(void);
-    
-    //## operation readUnderwaterSensorsData()
-    virtual underwaterSensorData readUnderwaterSensorsData(void);
+    //## operation returnUnderwaterSensorsData()
+    virtual underwaterSensorData returnUnderwaterSensorsData(void);
 
 private :
 
+    //## operation getHorizontalAcceleration()
+    virtual void getHorizontalAcceleration(void);
+    
+    //## operation getVerticalAcceleration()
+    virtual void getVerticalAcceleration(void);
+    
     //## operation readSensorsData()
-    virtual underwaterSensorData readSensorsData(void);
+    virtual void readSensorsData(void);
     
     ////    Additional operations    ////
 
@@ -135,9 +133,6 @@ public :
     void setItsSMSWTD(SMSWTD* const p_SMSWTD);
     
     //## auto_generated
-    virtual bool cancelTimeout(const IOxfTimeout* arg);
-    
-    //## auto_generated
     virtual bool startBehavior(void);
 
 protected :
@@ -150,9 +145,6 @@ protected :
     
     //## auto_generated
     void cleanUpRelations(void);
-    
-    //## auto_generated
-    void cancelTimeouts(void);
     
     ////    Attributes    ////
 
@@ -187,10 +179,6 @@ public :
     //## statechart_method
     inline RhpBoolean rootState_IN(void) const;
     
-    // underwaterSensorsTimeEvent:
-    //## statechart_method
-    inline RhpBoolean underwaterSensorsTimeEvent_IN(void) const;
-    
     // Sampling:
     //## statechart_method
     inline RhpBoolean Sampling_IN(void) const;
@@ -212,9 +200,8 @@ protected :
 //#[ ignore
     enum UnderwaterSeismicSensorNetwork_Enum {
         OMNonState = 0,
-        underwaterSensorsTimeEvent = 1,
-        Sampling = 2,
-        Idle = 3
+        Sampling = 1,
+        Idle = 2
     };
 //#]
 
@@ -224,8 +211,6 @@ private :
     UnderwaterSeismicSensorNetwork_Enum rootState_subState;
     
     UnderwaterSeismicSensorNetwork_Enum rootState_active;
-    
-    IOxfTimeout* rootState_timeout;
 //#]
 };
 
@@ -246,9 +231,6 @@ public :
     void rootState_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
-    void underwaterSensorsTimeEvent_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
     void Sampling_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
@@ -259,10 +241,6 @@ public :
 
 inline RhpBoolean UnderwaterSeismicSensorNetwork::rootState_IN(void) const {
     return true;
-}
-
-inline RhpBoolean UnderwaterSeismicSensorNetwork::underwaterSensorsTimeEvent_IN(void) const {
-    return rootState_subState == underwaterSensorsTimeEvent;
 }
 
 inline RhpBoolean UnderwaterSeismicSensorNetwork::Sampling_IN(void) const {

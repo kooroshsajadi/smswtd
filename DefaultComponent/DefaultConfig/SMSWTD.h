@@ -25,8 +25,6 @@
 #include <state.h>
 //## auto_generated
 #include <event.h>
-//## class SMSWTD
-#include "AnalysisInputInterfaces.h"
 //## classInstance itsDataCollectionSubsystem
 #include "DataCollectionSubsystem.h"
 //## classInstance itsDataProcessingAndAnalyticsSubsystem
@@ -35,6 +33,8 @@
 #include "RiskAssessmentAndAlertingSubsystem.h"
 //## classInstance itsSecurityAndAccessControl
 #include "SecurityAndAccessControl.h"
+//## class SMSWTD
+#include "SMSWTDInterface.h"
 //## classInstance itsSystemInfrastructure
 #include "SystemInfrastructure.h"
 //## class port_Ocean_C
@@ -58,7 +58,7 @@ class UnderwaterSeismicSensorNetwork;
 //## package SMSTWD_ARCH
 
 //## class SMSWTD
-class SMSWTD : public OMReactive, public AnalysisInputInterfaces {
+class SMSWTD : public OMReactive, public SMSWTDInterface {
 public :
 
 //#[ ignore
@@ -83,7 +83,13 @@ public :
         SensorDataInterface* getOutBound(void);
         
         //## auto_generated
-        virtual underwaterSensorData readUnderwaterSensorsData(void);
+        virtual underwaterSensorData returnUnderwaterSensorsData(void);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
         
         ////    Additional operations    ////
         
@@ -129,6 +135,12 @@ public :
         //## auto_generated
         virtual satelliteData readSatelliteData(void);
         
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
+        
         ////    Additional operations    ////
         
         //## auto_generated
@@ -171,7 +183,13 @@ public :
         AircraftDataInterface* getOutBound(void);
         
         //## auto_generated
-        virtual aircraftData readAircraftSensorsData(void);
+        virtual aircraftData returnAircraftSensorsData(void);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
         
         ////    Additional operations    ////
         
@@ -192,6 +210,56 @@ public :
         ////    Relations and components    ////
         
         AircraftDataInterface* itsAircraftDataInterface;		//## link itsAircraftDataInterface
+    };
+    
+    //## package SMSTWD_ARCH
+    class port_Analytics_C : public SMSWTDInterface {
+        ////    Constructors and destructors    ////
+        
+    public :
+    
+        //## auto_generated
+        port_Analytics_C(void);
+        
+        //## auto_generated
+        virtual ~port_Analytics_C(void);
+        
+        ////    Operations    ////
+        
+        //## auto_generated
+        void connectSMSWTD(SMSWTD* part);
+        
+        //## auto_generated
+        SMSWTDInterface* getItsSMSWTDInterface(void);
+        
+        //## auto_generated
+        virtual aircraftData sendAircraftData(void);
+        
+        //## auto_generated
+        virtual satelliteData sendSatelliteData(void);
+        
+        //## auto_generated
+        virtual underwaterSensorData sendUnderwaterData(void);
+        
+        ////    Additional operations    ////
+        
+        //## auto_generated
+        void setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface);
+    
+    protected :
+    
+        //## auto_generated
+        void cleanUpRelations(void);
+        
+        ////    Attributes    ////
+    
+    private :
+    
+        RhpInteger _p_;		//## attribute _p_
+        
+        ////    Relations and components    ////
+        
+        SMSWTDInterface* itsSMSWTDInterface;		//## link itsSMSWTDInterface
     };
 //#]
 
@@ -214,8 +282,17 @@ public :
     //## operation getSensorsData()
     virtual void getSensorsData(void);
     
-    //## operation run()
-    virtual void run(void);
+    //## operation sendAircraftData()
+    virtual aircraftData sendAircraftData(void);
+    
+    //## operation sendSatelliteData()
+    virtual satelliteData sendSatelliteData(void);
+    
+    //## operation sendUnderwaterData()
+    virtual underwaterSensorData sendUnderwaterData(void);
+    
+    //## operation startSubsystems()
+    virtual void startSubsystems(void);
 
 private :
 
@@ -246,6 +323,12 @@ public :
     
     //## auto_generated
     port_Aircraft_C* get_port_Aircraft(void) const;
+    
+    //## auto_generated
+    port_Analytics_C* getPort_Analytics(void) const;
+    
+    //## auto_generated
+    port_Analytics_C* get_port_Analytics(void) const;
     
     //## auto_generated
     int const getAtmosphericPressure(void) const;
@@ -337,6 +420,9 @@ public :
 protected :
 
     //## auto_generated
+    void initRelations(void);
+    
+    //## auto_generated
     void initStatechart(void);
     
     //## auto_generated
@@ -387,6 +473,8 @@ private :
     port_Satellite_C port_Satellite;
     
     port_Aircraft_C port_Aircraft;
+    
+    port_Analytics_C port_Analytics;
 //#]
 
     AircraftSensorNetwork* itsAircraftSensorNetwork;		//## link itsAircraftSensorNetwork
@@ -501,7 +589,7 @@ private :
 
 #ifdef _OMINSTRUMENT
 //#[ ignore
-class OMAnimatedSMSWTD : public OMAnimatedAnalysisInputInterfaces {
+class OMAnimatedSMSWTD : public OMAnimatedSMSWTDInterface {
     DECLARE_REACTIVE_META(SMSWTD, OMAnimatedSMSWTD)
     
     ////    Framework operations    ////

@@ -43,6 +43,8 @@
 //## auto_generated
 #include "SensorDataInterface.h"
 //## auto_generated
+#include "SMSWTDInterface.h"
+//## auto_generated
 #include "SystemInfrastructure.h"
 //#[ ignore
 #define evSMSWTDOn_SERIALIZE OM_NO_OP
@@ -86,6 +88,24 @@
 #define start_sensing_UNSERIALIZE OM_NO_OP
 
 #define start_sensing_CONSTRUCTOR start_sensing()
+
+#define redoSensing_SERIALIZE OM_NO_OP
+
+#define redoSensing_UNSERIALIZE OM_NO_OP
+
+#define redoSensing_CONSTRUCTOR redoSensing()
+
+#define startProcessing_SERIALIZE OM_NO_OP
+
+#define startProcessing_UNSERIALIZE OM_NO_OP
+
+#define startProcessing_CONSTRUCTOR startProcessing()
+
+#define processData_SERIALIZE OM_NO_OP
+
+#define processData_UNSERIALIZE OM_NO_OP
+
+#define processData_CONSTRUCTOR processData()
 //#]
 
 //## package SMSTWD_ARCH
@@ -96,6 +116,9 @@ AircraftSensorNetwork itsAircraftSensorNetwork;
 
 //## classInstance itsDataProcessingAndAnalyticsSubsystem
 DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem;
+
+//## classInstance itsDataProcessingAndAnalyticsSubsystem_1
+DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem_1;
 
 //## classInstance itsSMSWTD
 SMSWTD itsSMSWTD;
@@ -134,6 +157,12 @@ void SMSTWD_ARCH_initRelations(void) {
         {
             itsSMSWTD_1.setShouldDelete(false);
         }
+        {
+            itsDataProcessingAndAnalyticsSubsystem.setShouldDelete(false);
+        }
+        {
+            itsDataProcessingAndAnalyticsSubsystem_1.setShouldDelete(false);
+        }
     }
     {
         
@@ -150,6 +179,11 @@ void SMSTWD_ARCH_initRelations(void) {
         itsSMSWTD.get_port_Aircraft()->setItsAircraftDataInterface(itsAircraftSensorNetwork.get_port_Aircraft()->getItsAircraftDataInterface());
         
     }
+    {
+        
+        itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->setItsSMSWTDInterface(itsSMSWTD.get_port_Analytics()->getItsSMSWTDInterface());
+        
+    }
     
     #ifdef _OMINSTRUMENT
     RenameGlobalInstances();
@@ -161,6 +195,14 @@ bool SMSTWD_ARCH_startBehavior(void) {
     if(done == true)
         {
             done = itsAircraftSensorNetwork.startBehavior();
+        }
+    if(done == true)
+        {
+            done = itsDataProcessingAndAnalyticsSubsystem.startBehavior();
+        }
+    if(done == true)
+        {
+            done = itsDataProcessingAndAnalyticsSubsystem_1.startBehavior();
         }
     if(done == true)
         {
@@ -192,6 +234,7 @@ static void RenameGlobalInstances(void) {
     OM_SET_INSTANCE_NAME(&itsAircraftSensorNetwork, AircraftSensorNetwork, "itsAircraftSensorNetwork", AOMNoMultiplicity);
     OM_SET_INSTANCE_NAME(&itsSMSWTD_1, SMSWTD, "itsSMSWTD_1", AOMNoMultiplicity);
     OM_SET_INSTANCE_NAME(&itsDataProcessingAndAnalyticsSubsystem, DataProcessingAndAnalyticsSubsystem, "itsDataProcessingAndAnalyticsSubsystem", AOMNoMultiplicity);
+    OM_SET_INSTANCE_NAME(&itsDataProcessingAndAnalyticsSubsystem_1, DataProcessingAndAnalyticsSubsystem, "itsDataProcessingAndAnalyticsSubsystem_1", AOMNoMultiplicity);
 }
 #endif // _OMINSTRUMENT
 
@@ -288,6 +331,42 @@ const IOxfEvent::ID start_sensing_SMSTWD_ARCH_id(18607);
 //#]
 
 IMPLEMENT_META_EVENT_P(start_sensing, SMSTWD_ARCH, SMSTWD_ARCH, start_sensing())
+
+//## event redoSensing()
+redoSensing::redoSensing(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(redoSensing)
+    setId(redoSensing_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID redoSensing_SMSTWD_ARCH_id(18608);
+//#]
+
+IMPLEMENT_META_EVENT_P(redoSensing, SMSTWD_ARCH, SMSTWD_ARCH, redoSensing())
+
+//## event startProcessing()
+startProcessing::startProcessing(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(startProcessing)
+    setId(startProcessing_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID startProcessing_SMSTWD_ARCH_id(18609);
+//#]
+
+IMPLEMENT_META_EVENT_P(startProcessing, SMSTWD_ARCH, SMSTWD_ARCH, startProcessing())
+
+//## event processData()
+processData::processData(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(processData)
+    setId(processData_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID processData_SMSTWD_ARCH_id(18610);
+//#]
+
+IMPLEMENT_META_EVENT_P(processData, SMSTWD_ARCH, SMSTWD_ARCH, processData())
 
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp

@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: AircraftDataInterface
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\AircraftDataInterface.h
 *********************************************************************/
 
@@ -17,10 +17,18 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
+//## auto_generated
+#include <omthread.h>
+//## auto_generated
+#include <omreactive.h>
+//## auto_generated
+#include <state.h>
+//## auto_generated
+#include <event.h>
 //## package SMSTWD_ARCH
 
 //## class AircraftDataInterface
-class AircraftDataInterface {
+class AircraftDataInterface : virtual public OMReactive {
     ////    Friends    ////
     
 public :
@@ -39,8 +47,8 @@ public :
     
     ////    Operations    ////
     
-    //## operation readAircraftSensorsData()
-    virtual aircraftData readAircraftSensorsData(void) = 0;
+    //## operation returnAircraftSensorsData()
+    virtual aircraftData returnAircraftSensorsData(void) = 0;
 };
 
 #ifdef _OMINSTRUMENT

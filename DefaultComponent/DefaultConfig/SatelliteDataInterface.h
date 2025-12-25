@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SatelliteDataInterface
-//!	Generated Date	: Mon, 22, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SatelliteDataInterface.h
 *********************************************************************/
 
@@ -17,10 +17,18 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
+//## auto_generated
+#include <omthread.h>
+//## auto_generated
+#include <omreactive.h>
+//## auto_generated
+#include <state.h>
+//## auto_generated
+#include <event.h>
 //## package SMSTWD_ARCH
 
 //## class SatelliteDataInterface
-class SatelliteDataInterface {
+class SatelliteDataInterface : virtual public OMReactive {
     ////    Friends    ////
     
 public :

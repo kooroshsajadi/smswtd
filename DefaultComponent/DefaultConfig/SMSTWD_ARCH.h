@@ -45,6 +45,9 @@ class RiskAssessmentAndAlertingSubsystem;
 class SMSWTD;
 
 //## auto_generated
+class SMSWTDInterface;
+
+//## auto_generated
 class SatelliteDataInterface;
 
 //## classInstance itsSatelliteSystem
@@ -92,6 +95,9 @@ extern AircraftSensorNetwork itsAircraftSensorNetwork;
 
 //## classInstance itsDataProcessingAndAnalyticsSubsystem
 extern DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem;
+
+//## classInstance itsDataProcessingAndAnalyticsSubsystem_1
+extern DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem_1;
 
 //## classInstance itsSMSWTD
 extern SMSWTD itsSMSWTD;
@@ -319,6 +325,90 @@ class OMAnimatedstart_sensing : virtual public AOMEvent {
 
 //#[ ignore
 extern const IOxfEvent::ID start_sensing_SMSTWD_ARCH_id;
+//#]
+
+//## event redoSensing()
+class redoSensing : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedredoSensing;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    redoSensing(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedredoSensing : virtual public AOMEvent {
+    DECLARE_META_EVENT(redoSensing)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID redoSensing_SMSTWD_ARCH_id;
+//#]
+
+//## event startProcessing()
+class startProcessing : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedstartProcessing;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    startProcessing(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedstartProcessing : virtual public AOMEvent {
+    DECLARE_META_EVENT(startProcessing)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID startProcessing_SMSTWD_ARCH_id;
+//#]
+
+//## event processData()
+class processData : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedprocessData;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    processData(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedprocessData : virtual public AOMEvent {
+    DECLARE_META_EVENT(processData)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID processData_SMSTWD_ARCH_id;
 //#]
 
 #endif

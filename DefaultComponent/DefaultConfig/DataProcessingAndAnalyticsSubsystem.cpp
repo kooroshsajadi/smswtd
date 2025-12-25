@@ -10,6 +10,8 @@
 
 //#[ ignore
 #define NAMESPACE_PREFIX
+
+#define _OMSTATECHART_ANIMATED
 //#]
 
 //## auto_generated
@@ -23,8 +25,62 @@
 //## package SMSTWD_ARCH
 
 //## class DataProcessingAndAnalyticsSubsystem
-DataProcessingAndAnalyticsSubsystem::DataProcessingAndAnalyticsSubsystem(void) {
-    NOTIFY_CONSTRUCTOR(DataProcessingAndAnalyticsSubsystem, DataProcessingAndAnalyticsSubsystem(), 0, SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_DataProcessingAndAnalyticsSubsystem_SERIALIZE);
+//#[ ignore
+DataProcessingAndAnalyticsSubsystem::port_Analytics_C::port_Analytics_C(void) : SMSWTDInterface(), _p_(0), itsSMSWTDInterface(NULL) {
+}
+
+DataProcessingAndAnalyticsSubsystem::port_Analytics_C::~port_Analytics_C(void) {
+    cleanUpRelations();
+}
+
+SMSWTDInterface* DataProcessingAndAnalyticsSubsystem::port_Analytics_C::getItsSMSWTDInterface(void) {
+    return this;
+}
+
+SMSWTDInterface* DataProcessingAndAnalyticsSubsystem::port_Analytics_C::getOutBound(void) {
+    return this;
+}
+
+aircraftData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendAircraftData(void) {
+    aircraftData res;
+    if (itsSMSWTDInterface != NULL) {
+        res = itsSMSWTDInterface->sendAircraftData();
+    }
+    return res;
+}
+
+satelliteData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendSatelliteData(void) {
+    satelliteData res;
+    if (itsSMSWTDInterface != NULL) {
+        res = itsSMSWTDInterface->sendSatelliteData();
+    }
+    return res;
+}
+
+underwaterSensorData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendUnderwaterData(void) {
+    underwaterSensorData res;
+    if (itsSMSWTDInterface != NULL) {
+        res = itsSMSWTDInterface->sendUnderwaterData();
+    }
+    return res;
+}
+
+void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface) {
+    itsSMSWTDInterface = p_SMSWTDInterface;
+}
+
+void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::cleanUpRelations(void) {
+    if(itsSMSWTDInterface != NULL)
+        {
+            itsSMSWTDInterface = NULL;
+        }
+}
+//#]
+
+DataProcessingAndAnalyticsSubsystem::DataProcessingAndAnalyticsSubsystem(IOxfActive* const theActiveContext) : OMReactive() {
+    NOTIFY_REACTIVE_CONSTRUCTOR(DataProcessingAndAnalyticsSubsystem, DataProcessingAndAnalyticsSubsystem(), 0, SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_DataProcessingAndAnalyticsSubsystem_SERIALIZE);
+    setActiveContext(theActiveContext, false);
+    initStatechart();
 }
 
 DataProcessingAndAnalyticsSubsystem::~DataProcessingAndAnalyticsSubsystem(void) {
@@ -36,6 +92,14 @@ void DataProcessingAndAnalyticsSubsystem::processData(void) {
     //#[ operation processData()
     std::cout << "Processing data.." << std::endl;
     //#]
+}
+
+DataProcessingAndAnalyticsSubsystem::port_Analytics_C* DataProcessingAndAnalyticsSubsystem::getPort_Analytics(void) const {
+    return (DataProcessingAndAnalyticsSubsystem::port_Analytics_C*) &port_Analytics;
+}
+
+DataProcessingAndAnalyticsSubsystem::port_Analytics_C* DataProcessingAndAnalyticsSubsystem::get_port_Analytics(void) const {
+    return (DataProcessingAndAnalyticsSubsystem::port_Analytics_C*) &port_Analytics;
 }
 
 int const DataProcessingAndAnalyticsSubsystem::getAtmosphericPressure(void) const {
@@ -86,6 +150,17 @@ void DataProcessingAndAnalyticsSubsystem::setWindSpeed(const int p_windSpeed) {
     windSpeed = p_windSpeed;
 }
 
+bool DataProcessingAndAnalyticsSubsystem::startBehavior(void) {
+    bool done = false;
+    done = OMReactive::startBehavior();
+    return done;
+}
+
+void DataProcessingAndAnalyticsSubsystem::initStatechart(void) {
+    rootState_subState = OMNonState;
+    rootState_active = OMNonState;
+}
+
 char* const DataProcessingAndAnalyticsSubsystem::getModelVersion(void) const {
     return modelVersion;
 }
@@ -102,6 +177,61 @@ void DataProcessingAndAnalyticsSubsystem::setWindowSize(const int p_windowSize) 
     windowSize = p_windowSize;
 }
 
+void DataProcessingAndAnalyticsSubsystem::rootState_entDef(void) {
+    {
+        NOTIFY_STATE_ENTERED("ROOT");
+        NOTIFY_TRANSITION_STARTED("0");
+        NOTIFY_STATE_ENTERED("ROOT.Idle");
+        rootState_subState = Idle;
+        rootState_active = Idle;
+        NOTIFY_TRANSITION_TERMINATED("0");
+    }
+}
+
+IOxfReactive::TakeEventStatus DataProcessingAndAnalyticsSubsystem::rootState_processEvent(void) {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    switch (rootState_active) {
+        // State Idle
+        case Idle:
+        {
+            if(IS_EVENT_TYPE_OF(startProcessing_SMSTWD_ARCH_id) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("1");
+                    NOTIFY_STATE_EXITED("ROOT.Idle");
+                    //#[ transition 1 
+                    std::cout << "Data analytics is on!" << std::endl;
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.Processing");
+                    rootState_subState = Processing;
+                    rootState_active = Processing;
+                    NOTIFY_TRANSITION_TERMINATED("1");
+                    res = eventConsumed;
+                }
+            
+        }
+        break;
+        // State Processing
+        case Processing:
+        {
+            if(IS_EVENT_TYPE_OF(processData_SMSTWD_ARCH_id) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("2");
+                    NOTIFY_STATE_EXITED("ROOT.Processing");
+                    NOTIFY_STATE_ENTERED("ROOT.Processing");
+                    rootState_subState = Processing;
+                    rootState_active = Processing;
+                    NOTIFY_TRANSITION_TERMINATED("2");
+                    res = eventConsumed;
+                }
+            
+        }
+        break;
+        default:
+            break;
+    }
+    return res;
+}
+
 #ifdef _OMINSTRUMENT
 //#[ ignore
 void OMAnimatedDataProcessingAndAnalyticsSubsystem::serializeAttributes(AOMSAttributes* aomsAttributes) const {
@@ -114,9 +244,35 @@ void OMAnimatedDataProcessingAndAnalyticsSubsystem::serializeAttributes(AOMSAttr
     aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
     aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
 }
+
+void OMAnimatedDataProcessingAndAnalyticsSubsystem::rootState_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT");
+    switch (myReal->rootState_subState) {
+        case DataProcessingAndAnalyticsSubsystem::Idle:
+        {
+            Idle_serializeStates(aomsState);
+        }
+        break;
+        case DataProcessingAndAnalyticsSubsystem::Processing:
+        {
+            Processing_serializeStates(aomsState);
+        }
+        break;
+        default:
+            break;
+    }
+}
+
+void OMAnimatedDataProcessingAndAnalyticsSubsystem::Processing_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.Processing");
+}
+
+void OMAnimatedDataProcessingAndAnalyticsSubsystem::Idle_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.Idle");
+}
 //#]
 
-IMPLEMENT_META_P(DataProcessingAndAnalyticsSubsystem, SMSTWD_ARCH, SMSTWD_ARCH, false, OMAnimatedDataProcessingAndAnalyticsSubsystem)
+IMPLEMENT_REACTIVE_META_P(DataProcessingAndAnalyticsSubsystem, SMSTWD_ARCH, SMSTWD_ARCH, false, OMAnimatedDataProcessingAndAnalyticsSubsystem)
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

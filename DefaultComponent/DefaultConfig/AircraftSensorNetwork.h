@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: AircraftSensorNetwork
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\AircraftSensorNetwork.h
 *********************************************************************/
 
@@ -17,14 +17,6 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
-//## auto_generated
-#include <omthread.h>
-//## auto_generated
-#include <omreactive.h>
-//## auto_generated
-#include <state.h>
-//## auto_generated
-#include <event.h>
 //## class AircraftSensorNetwork
 #include "AircraftDataInterface.h"
 //## link itsSMSWTD
@@ -33,7 +25,7 @@ class SMSWTD;
 //## package SMSTWD_ARCH
 
 //## class AircraftSensorNetwork
-class AircraftSensorNetwork : public OMReactive, public AircraftDataInterface {
+class AircraftSensorNetwork : public AircraftDataInterface {
 public :
 
 //#[ ignore
@@ -58,7 +50,13 @@ public :
         AircraftDataInterface* getItsAircraftDataInterface(void);
         
         //## auto_generated
-        virtual aircraftData readAircraftSensorsData(void);
+        virtual aircraftData returnAircraftSensorsData(void);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event, const IOxfEventGenerationParams& params);
+        
+        //## auto_generated
+        virtual bool send(IOxfEvent* event);
         
         ////    Additional operations    ////
         
@@ -98,13 +96,25 @@ public :
     
     ////    Operations    ////
     
-    //## operation readAircraftSensorsData()
-    virtual aircraftData readAircraftSensorsData(void);
+    //## operation returnAircraftSensorsData()
+    virtual aircraftData returnAircraftSensorsData(void);
 
 private :
 
+    //## operation getAtmosphericPressure()
+    virtual void getAtmosphericPressure(void);
+    
+    //## operation getPrecipitationType()
+    virtual void getPrecipitationType(void);
+    
+    //## operation getTemperature()
+    virtual void getTemperature(void);
+    
+    //## operation getWindSpeed()
+    virtual void getWindSpeed(void);
+    
     //## operation readSensorsData()
-    virtual aircraftData readSensorsData(void);
+    virtual void readSensorsData(void);
     
     ////    Additional operations    ////
 
@@ -135,9 +145,6 @@ public :
     void setItsSMSWTD(SMSWTD* const p_SMSWTD);
     
     //## auto_generated
-    virtual bool cancelTimeout(const IOxfTimeout* arg);
-    
-    //## auto_generated
     virtual bool startBehavior(void);
 
 protected :
@@ -151,25 +158,10 @@ protected :
     //## auto_generated
     void cleanUpRelations(void);
     
-    //## auto_generated
-    void cancelTimeouts(void);
+    ////    Attributes    ////
 
 private :
 
-    //## auto_generated
-    int const getAtmosphericPressure(void) const;
-    
-    //## auto_generated
-    int const getPrecipitationType(void) const;
-    
-    //## auto_generated
-    int const getTemperature(void) const;
-    
-    //## auto_generated
-    int const getWindSpeed(void) const;
-    
-    ////    Attributes    ////
-    
     int atmosphericPressure;		//## attribute atmosphericPressure
     
     int precipitationType;		//## attribute precipitationType
@@ -210,10 +202,6 @@ public :
     // Idle:
     //## statechart_method
     inline RhpBoolean Idle_IN(void) const;
-    
-    // accepttimeevent_2:
-    //## statechart_method
-    inline RhpBoolean accepttimeevent_2_IN(void) const;
 
 protected :
 
@@ -229,8 +217,7 @@ protected :
     enum AircraftSensorNetwork_Enum {
         OMNonState = 0,
         Sampling = 1,
-        Idle = 2,
-        accepttimeevent_2 = 3
+        Idle = 2
     };
 //#]
 
@@ -240,8 +227,6 @@ private :
     AircraftSensorNetwork_Enum rootState_subState;
     
     AircraftSensorNetwork_Enum rootState_active;
-    
-    IOxfTimeout* rootState_timeout;
 //#]
 };
 
@@ -266,9 +251,6 @@ public :
     
     //## statechart_method
     void Idle_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
-    void accepttimeevent_2_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
@@ -283,10 +265,6 @@ inline RhpBoolean AircraftSensorNetwork::Sampling_IN(void) const {
 
 inline RhpBoolean AircraftSensorNetwork::Idle_IN(void) const {
     return rootState_subState == Idle;
-}
-
-inline RhpBoolean AircraftSensorNetwork::accepttimeevent_2_IN(void) const {
-    return rootState_subState == accepttimeevent_2;
 }
 
 #endif

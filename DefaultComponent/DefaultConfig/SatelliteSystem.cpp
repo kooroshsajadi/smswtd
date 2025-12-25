@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SatelliteSystem
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SatelliteSystem.cpp
 *********************************************************************/
 
@@ -52,6 +52,44 @@ satelliteData SatelliteSystem::port_Satellite_C::readSatelliteData(void) {
     return res;
 }
 
+bool SatelliteSystem::port_Satellite_C::send(IOxfEvent* event, const IOxfEventGenerationParams& params) {
+    bool res = false;
+    if (event != NULL) {
+        event->setPort(this);
+        if (itsSatelliteDataInterface != NULL) {
+            if (event->isTypeOf(startSensing_SMSTWD_ARCH_id)) {
+                res = itsSatelliteDataInterface->send(event, params);
+            }
+            else if (event->isTypeOf(redoSensing_SMSTWD_ARCH_id)) {
+                res = itsSatelliteDataInterface->send(event, params);
+            }
+            else {// Interface SatelliteDataInterface does not support any other events
+            }
+        }
+    }
+    return res;
+    
+}
+
+bool SatelliteSystem::port_Satellite_C::send(IOxfEvent* event) {
+    bool res = false;
+    if (event != NULL) {
+        event->setPort(this);
+        if (itsSatelliteDataInterface != NULL) {
+            if (event->isTypeOf(startSensing_SMSTWD_ARCH_id)) {
+                res = itsSatelliteDataInterface->send(event);
+            }
+            else if (event->isTypeOf(redoSensing_SMSTWD_ARCH_id)) {
+                res = itsSatelliteDataInterface->send(event);
+            }
+            else {// Interface SatelliteDataInterface does not support any other events
+            }
+        }
+    }
+    return res;
+    
+}
+
 void SatelliteSystem::port_Satellite_C::setItsSatelliteDataInterface(SatelliteDataInterface* const p_SatelliteDataInterface) {
     itsSatelliteDataInterface = p_SatelliteDataInterface;
 }
@@ -64,7 +102,7 @@ void SatelliteSystem::port_Satellite_C::cleanUpRelations(void) {
 }
 //#]
 
-SatelliteSystem::SatelliteSystem(IOxfActive* const theActiveContext) : OMReactive(), SatelliteDataInterface(), itsSMSWTD(NULL) {
+SatelliteSystem::SatelliteSystem(IOxfActive* const theActiveContext) : SatelliteDataInterface(), itsSMSWTD(NULL) {
     NOTIFY_REACTIVE_CONSTRUCTOR(SatelliteSystem, SatelliteSystem(), 0, SMSTWD_ARCH_SatelliteSystem_SatelliteSystem_SERIALIZE);
     setActiveContext(theActiveContext, false);
     initRelations();

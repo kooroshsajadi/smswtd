@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: AircraftDataInterface
-//!	Generated Date	: Tue, 23, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\AircraftDataInterface.cpp
 *********************************************************************/
 
@@ -17,13 +17,13 @@
 //#[ ignore
 #define SMSTWD_ARCH_AircraftDataInterface_AircraftDataInterface_SERIALIZE OM_NO_OP
 
-#define SMSTWD_ARCH_AircraftDataInterface_readAircraftSensorsData_SERIALIZE OM_NO_OP
+#define SMSTWD_ARCH_AircraftDataInterface_returnAircraftSensorsData_SERIALIZE OM_NO_OP
 //#]
 
 //## package SMSTWD_ARCH
 
 //## class AircraftDataInterface
-AircraftDataInterface::AircraftDataInterface(void) {
+AircraftDataInterface::AircraftDataInterface(void) : OMReactive() {
     NOTIFY_CONSTRUCTOR(AircraftDataInterface, AircraftDataInterface(), 0, SMSTWD_ARCH_AircraftDataInterface_AircraftDataInterface_SERIALIZE);
 }
 
