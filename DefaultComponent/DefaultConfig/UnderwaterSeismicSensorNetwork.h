@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: UnderwaterSeismicSensorNetwork
-//!	Generated Date	: Mon, 22, Dec 2025  
+//!	Generated Date	: Tue, 23, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\UnderwaterSeismicSensorNetwork.h
 *********************************************************************/
 
@@ -58,7 +58,7 @@ public :
         SensorDataInterface* getItsSensorDataInterface(void);
         
         //## auto_generated
-        virtual underwaterSensorData readUnderwaterSensorData(void);
+        virtual underwaterSensorData readUnderwaterSensorsData(void);
         
         ////    Additional operations    ////
         
@@ -104,11 +104,18 @@ public :
     //## operation getVerticalAcceleration()
     virtual int getVerticalAcceleration(void);
     
-    //## operation readUnderwaterSensorData()
-    virtual underwaterSensorData readUnderwaterSensorData(void);
+    //## operation readUnderwaterSensorsData()
+    virtual underwaterSensorData readUnderwaterSensorsData(void);
+
+private :
+
+    //## operation readSensorsData()
+    virtual underwaterSensorData readSensorsData(void);
     
     ////    Additional operations    ////
-    
+
+public :
+
     //## auto_generated
     port_Ocean_C* getPort_Ocean(void) const;
     
@@ -128,6 +135,9 @@ public :
     void setItsSMSWTD(SMSWTD* const p_SMSWTD);
     
     //## auto_generated
+    virtual bool cancelTimeout(const IOxfTimeout* arg);
+    
+    //## auto_generated
     virtual bool startBehavior(void);
 
 protected :
@@ -140,6 +150,9 @@ protected :
     
     //## auto_generated
     void cleanUpRelations(void);
+    
+    //## auto_generated
+    void cancelTimeouts(void);
     
     ////    Attributes    ////
 
@@ -174,6 +187,10 @@ public :
     //## statechart_method
     inline RhpBoolean rootState_IN(void) const;
     
+    // underwaterSensorsTimeEvent:
+    //## statechart_method
+    inline RhpBoolean underwaterSensorsTimeEvent_IN(void) const;
+    
     // Sampling:
     //## statechart_method
     inline RhpBoolean Sampling_IN(void) const;
@@ -195,8 +212,9 @@ protected :
 //#[ ignore
     enum UnderwaterSeismicSensorNetwork_Enum {
         OMNonState = 0,
-        Sampling = 1,
-        Idle = 2
+        underwaterSensorsTimeEvent = 1,
+        Sampling = 2,
+        Idle = 3
     };
 //#]
 
@@ -206,6 +224,8 @@ private :
     UnderwaterSeismicSensorNetwork_Enum rootState_subState;
     
     UnderwaterSeismicSensorNetwork_Enum rootState_active;
+    
+    IOxfTimeout* rootState_timeout;
 //#]
 };
 
@@ -226,6 +246,9 @@ public :
     void rootState_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
+    void underwaterSensorsTimeEvent_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
     void Sampling_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
@@ -236,6 +259,10 @@ public :
 
 inline RhpBoolean UnderwaterSeismicSensorNetwork::rootState_IN(void) const {
     return true;
+}
+
+inline RhpBoolean UnderwaterSeismicSensorNetwork::underwaterSensorsTimeEvent_IN(void) const {
+    return rootState_subState == underwaterSensorsTimeEvent;
 }
 
 inline RhpBoolean UnderwaterSeismicSensorNetwork::Sampling_IN(void) const {

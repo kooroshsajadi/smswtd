@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: Administrator
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\Administrator.h
 *********************************************************************/
 
@@ -17,9 +17,6 @@
 #include <aom.h>
 //## auto_generated
 #include "SMSTWD_ARCH.h"
-//## link itsHumanMachineInterface
-class HumanMachineInterface;
-
 //## link itsSecurityAndAccessControl
 class SecurityAndAccessControl;
 
@@ -46,12 +43,6 @@ public :
     ////    Additional operations    ////
     
     //## auto_generated
-    const HumanMachineInterface* getItsHumanMachineInterface(void) const;
-    
-    //## auto_generated
-    void setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
     const SecurityAndAccessControl* getItsSecurityAndAccessControl(void) const;
     
     //## auto_generated
@@ -66,23 +57,12 @@ protected :
 
 private :
 
-    HumanMachineInterface* itsHumanMachineInterface;		//## link itsHumanMachineInterface
-    
     SecurityAndAccessControl* itsSecurityAndAccessControl;		//## link itsSecurityAndAccessControl
     
     ////    Framework operations    ////
 
 public :
 
-    //## auto_generated
-    void __setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
-    void _setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
-    void _clearItsHumanMachineInterface(void);
-    
     //## auto_generated
     void __setItsSecurityAndAccessControl(SecurityAndAccessControl* const p_SecurityAndAccessControl);
     

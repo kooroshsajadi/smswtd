@@ -96,10 +96,10 @@ OBJS= \
   UnderwaterSeismicSensorNetwork.obj \
   AlertRecipients.obj \
   Administrator.obj \
-  HumanMachineInterface.obj \
   SensorDataInterface.obj \
-  AnalysisInputInterface.obj \
   AnalysisInputInterfaces.obj \
+  SatelliteDataInterface.obj \
+  AircraftDataInterface.obj \
   SMSTWD_ARCH.obj
 
 
@@ -183,7 +183,7 @@ SOCK_LIB=
 
 
 
-SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h 
+SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h AnalysisInputInterfaces.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSWTD.obj" "SMSWTD.cpp" 
 
@@ -213,19 +213,19 @@ SystemInfrastructure.obj : SystemInfrastructure.cpp SystemInfrastructure.h    SM
 
 
 
-SecurityAndAccessControl.obj : SecurityAndAccessControl.cpp SecurityAndAccessControl.h    SMSTWD_ARCH.h Administrator.h HumanMachineInterface.h 
+SecurityAndAccessControl.obj : SecurityAndAccessControl.cpp SecurityAndAccessControl.h    SMSTWD_ARCH.h Administrator.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SecurityAndAccessControl.obj" "SecurityAndAccessControl.cpp" 
 
 
 
-SatelliteSystem.obj : SatelliteSystem.cpp SatelliteSystem.h    SMSTWD_ARCH.h SMSWTD.h 
+SatelliteSystem.obj : SatelliteSystem.cpp SatelliteSystem.h    SMSTWD_ARCH.h SMSWTD.h SatelliteDataInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SatelliteSystem.obj" "SatelliteSystem.cpp" 
 
 
 
-AircraftSensorNetwork.obj : AircraftSensorNetwork.cpp AircraftSensorNetwork.h    SMSTWD_ARCH.h SMSWTD.h 
+AircraftSensorNetwork.obj : AircraftSensorNetwork.cpp AircraftSensorNetwork.h    SMSTWD_ARCH.h SMSWTD.h AircraftDataInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AircraftSensorNetwork.obj" "AircraftSensorNetwork.cpp" 
 
@@ -243,15 +243,9 @@ AlertRecipients.obj : AlertRecipients.cpp AlertRecipients.h    SMSTWD_ARCH.h SMS
 
 
 
-Administrator.obj : Administrator.cpp Administrator.h    SMSTWD_ARCH.h HumanMachineInterface.h SecurityAndAccessControl.h 
+Administrator.obj : Administrator.cpp Administrator.h    SMSTWD_ARCH.h SecurityAndAccessControl.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"Administrator.obj" "Administrator.cpp" 
-
-
-
-HumanMachineInterface.obj : HumanMachineInterface.cpp HumanMachineInterface.h    SMSTWD_ARCH.h Administrator.h SecurityAndAccessControl.h 
-	$(CREATE_OBJ_DIR)
-	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"HumanMachineInterface.obj" "HumanMachineInterface.cpp" 
 
 
 
@@ -261,19 +255,25 @@ SensorDataInterface.obj : SensorDataInterface.cpp SensorDataInterface.h    SMSTW
 
 
 
-AnalysisInputInterface.obj : AnalysisInputInterface.cpp AnalysisInputInterface.h    SMSTWD_ARCH.h 
-	$(CREATE_OBJ_DIR)
-	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AnalysisInputInterface.obj" "AnalysisInputInterface.cpp" 
-
-
-
 AnalysisInputInterfaces.obj : AnalysisInputInterfaces.cpp AnalysisInputInterfaces.h    SMSTWD_ARCH.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AnalysisInputInterfaces.obj" "AnalysisInputInterfaces.cpp" 
 
 
 
-SMSTWD_ARCH.obj : SMSTWD_ARCH.cpp SMSTWD_ARCH.h    SMSWTD.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SystemInfrastructure.h SecurityAndAccessControl.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h Administrator.h HumanMachineInterface.h SensorDataInterface.h AnalysisInputInterface.h AnalysisInputInterfaces.h 
+SatelliteDataInterface.obj : SatelliteDataInterface.cpp SatelliteDataInterface.h    SMSTWD_ARCH.h 
+	$(CREATE_OBJ_DIR)
+	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SatelliteDataInterface.obj" "SatelliteDataInterface.cpp" 
+
+
+
+AircraftDataInterface.obj : AircraftDataInterface.cpp AircraftDataInterface.h    SMSTWD_ARCH.h 
+	$(CREATE_OBJ_DIR)
+	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AircraftDataInterface.obj" "AircraftDataInterface.cpp" 
+
+
+
+SMSTWD_ARCH.obj : SMSTWD_ARCH.cpp SMSTWD_ARCH.h    SMSWTD.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SystemInfrastructure.h SecurityAndAccessControl.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h Administrator.h SensorDataInterface.h AnalysisInputInterfaces.h SatelliteDataInterface.h AircraftDataInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSTWD_ARCH.obj" "SMSTWD_ARCH.cpp" 
 
@@ -317,10 +317,10 @@ clean:
 	if exist UnderwaterSeismicSensorNetwork.obj erase UnderwaterSeismicSensorNetwork.obj
 	if exist AlertRecipients.obj erase AlertRecipients.obj
 	if exist Administrator.obj erase Administrator.obj
-	if exist HumanMachineInterface.obj erase HumanMachineInterface.obj
 	if exist SensorDataInterface.obj erase SensorDataInterface.obj
-	if exist AnalysisInputInterface.obj erase AnalysisInputInterface.obj
 	if exist AnalysisInputInterfaces.obj erase AnalysisInputInterfaces.obj
+	if exist SatelliteDataInterface.obj erase SatelliteDataInterface.obj
+	if exist AircraftDataInterface.obj erase AircraftDataInterface.obj
 	if exist SMSTWD_ARCH.obj erase SMSTWD_ARCH.obj
 	if exist $(TARGET_MAIN)$(OBJ_EXT) erase $(TARGET_MAIN)$(OBJ_EXT)
 	if exist *$(OBJ_EXT) erase *$(OBJ_EXT)

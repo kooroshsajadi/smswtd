@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.h
 *********************************************************************/
 
@@ -21,13 +21,13 @@
 class Administrator;
 
 //## auto_generated
+class AircraftDataInterface;
+
+//## classInstance itsAircraftSensorNetwork
 class AircraftSensorNetwork;
 
 //## auto_generated
 class AlertRecipients;
-
-//## auto_generated
-class AnalysisInputInterface;
 
 //## auto_generated
 class AnalysisInputInterfaces;
@@ -35,11 +35,8 @@ class AnalysisInputInterfaces;
 //## auto_generated
 class DataCollectionSubsystem;
 
-//## auto_generated
+//## classInstance itsDataProcessingAndAnalyticsSubsystem
 class DataProcessingAndAnalyticsSubsystem;
-
-//## auto_generated
-class HumanMachineInterface;
 
 //## auto_generated
 class RiskAssessmentAndAlertingSubsystem;
@@ -48,6 +45,9 @@ class RiskAssessmentAndAlertingSubsystem;
 class SMSWTD;
 
 //## auto_generated
+class SatelliteDataInterface;
+
+//## classInstance itsSatelliteSystem
 class SatelliteSystem;
 
 //## auto_generated
@@ -71,8 +71,36 @@ struct underwaterSensorData {
     int verticalAcceleration;		//## attribute verticalAcceleration
 };
 
+//## type aircraftData
+struct aircraftData {
+    double atmosphericPressure;		//## attribute atmosphericPressure
+    int precipitationType;		//## attribute precipitationType
+    int temperature;		//## attribute temperature
+    double windSpeed;		//## attribute windSpeed
+};
+
+//## type satelliteData
+struct satelliteData {
+    int cloudTopTemperature;		//## attribute cloudTopTemperature
+    int precipitationRate;		//## attribute precipitationRate
+    double stormDiameter;		//## attribute stormDiameter
+    double windSpeed;		//## attribute windSpeed
+};
+
+//## classInstance itsAircraftSensorNetwork
+extern AircraftSensorNetwork itsAircraftSensorNetwork;
+
+//## classInstance itsDataProcessingAndAnalyticsSubsystem
+extern DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem;
+
 //## classInstance itsSMSWTD
 extern SMSWTD itsSMSWTD;
+
+//## classInstance itsSMSWTD_1
+extern SMSWTD itsSMSWTD_1;
+
+//## classInstance itsSatelliteSystem
+extern SatelliteSystem itsSatelliteSystem;
 
 //## classInstance itsUnderwaterSeismicSensorNetwork
 extern UnderwaterSeismicSensorNetwork itsUnderwaterSeismicSensorNetwork;
@@ -207,6 +235,90 @@ class OMAnimatedstopSensing : virtual public AOMEvent {
 
 //#[ ignore
 extern const IOxfEvent::ID stopSensing_SMSTWD_ARCH_id;
+//#]
+
+//## event SMSTD_On()
+class SMSTD_On : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedSMSTD_On;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    SMSTD_On(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedSMSTD_On : virtual public AOMEvent {
+    DECLARE_META_EVENT(SMSTD_On)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID SMSTD_On_SMSTWD_ARCH_id;
+//#]
+
+//## event turn_on()
+class turn_on : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedturn_on;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    turn_on(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedturn_on : virtual public AOMEvent {
+    DECLARE_META_EVENT(turn_on)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID turn_on_SMSTWD_ARCH_id;
+//#]
+
+//## event start_sensing()
+class start_sensing : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedstart_sensing;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    start_sensing(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedstart_sensing : virtual public AOMEvent {
+    DECLARE_META_EVENT(start_sensing)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID start_sensing_SMSTWD_ARCH_id;
 //#]
 
 #endif

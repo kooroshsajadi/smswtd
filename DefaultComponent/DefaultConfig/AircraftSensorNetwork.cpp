@@ -4,12 +4,14 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: AircraftSensorNetwork
-//!	Generated Date	: Thu, 18, Dec 2025  
+//!	Generated Date	: Tue, 23, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\AircraftSensorNetwork.cpp
 *********************************************************************/
 
 //#[ ignore
 #define NAMESPACE_PREFIX
+
+#define _OMSTATECHART_ANIMATED
 //#]
 
 //## auto_generated
@@ -18,18 +20,128 @@
 #include "SMSWTD.h"
 //#[ ignore
 #define SMSTWD_ARCH_AircraftSensorNetwork_AircraftSensorNetwork_SERIALIZE OM_NO_OP
+
+#define SMSTWD_ARCH_AircraftSensorNetwork_readAircraftSensorsData_SERIALIZE OM_NO_OP
+
+#define SMSTWD_ARCH_AircraftSensorNetwork_readSensorsData_SERIALIZE OM_NO_OP
 //#]
 
 //## package SMSTWD_ARCH
 
 //## class AircraftSensorNetwork
-AircraftSensorNetwork::AircraftSensorNetwork(void) : itsSMSWTD(NULL) {
-    NOTIFY_CONSTRUCTOR(AircraftSensorNetwork, AircraftSensorNetwork(), 0, SMSTWD_ARCH_AircraftSensorNetwork_AircraftSensorNetwork_SERIALIZE);
+//#[ ignore
+AircraftSensorNetwork::port_Aircraft_C::port_Aircraft_C(void) : AircraftDataInterface(), _p_(0), itsAircraftDataInterface(NULL) {
+}
+
+AircraftSensorNetwork::port_Aircraft_C::~port_Aircraft_C(void) {
+    cleanUpRelations();
+}
+
+void AircraftSensorNetwork::port_Aircraft_C::connectAircraftSensorNetwork(AircraftSensorNetwork* part) {
+    setItsAircraftDataInterface(part);
+    
+}
+
+AircraftDataInterface* AircraftSensorNetwork::port_Aircraft_C::getItsAircraftDataInterface(void) {
+    return this;
+}
+
+aircraftData AircraftSensorNetwork::port_Aircraft_C::readAircraftSensorsData(void) {
+    aircraftData res;
+    if (itsAircraftDataInterface != NULL) {
+        res = itsAircraftDataInterface->readAircraftSensorsData();
+    }
+    return res;
+}
+
+void AircraftSensorNetwork::port_Aircraft_C::setItsAircraftDataInterface(AircraftDataInterface* const p_AircraftDataInterface) {
+    itsAircraftDataInterface = p_AircraftDataInterface;
+}
+
+void AircraftSensorNetwork::port_Aircraft_C::cleanUpRelations(void) {
+    if(itsAircraftDataInterface != NULL)
+        {
+            itsAircraftDataInterface = NULL;
+        }
+}
+//#]
+
+AircraftSensorNetwork::AircraftSensorNetwork(IOxfActive* const theActiveContext) : OMReactive(), AircraftDataInterface(), itsSMSWTD(NULL) {
+    NOTIFY_REACTIVE_CONSTRUCTOR(AircraftSensorNetwork, AircraftSensorNetwork(), 0, SMSTWD_ARCH_AircraftSensorNetwork_AircraftSensorNetwork_SERIALIZE);
+    setActiveContext(theActiveContext, false);
+    initRelations();
+    initStatechart();
 }
 
 AircraftSensorNetwork::~AircraftSensorNetwork(void) {
-    NOTIFY_DESTRUCTOR(~AircraftSensorNetwork, true);
+    NOTIFY_DESTRUCTOR(~AircraftSensorNetwork, false);
     cleanUpRelations();
+    cancelTimeouts();
+}
+
+aircraftData AircraftSensorNetwork::readAircraftSensorsData(void) {
+    NOTIFY_OPERATION(readAircraftSensorsData, readAircraftSensorsData(), 0, SMSTWD_ARCH_AircraftSensorNetwork_readAircraftSensorsData_SERIALIZE);
+    //#[ operation readAircraftSensorsData()
+    return readSensorsData();
+    //#]
+}
+
+aircraftData AircraftSensorNetwork::readSensorsData(void) {
+    NOTIFY_OPERATION(readSensorsData, readSensorsData(), 0, SMSTWD_ARCH_AircraftSensorNetwork_readSensorsData_SERIALIZE);
+    //#[ operation readSensorsData()
+    aircraftData newData;
+    
+    // Atmospheric pressure: 950 to 1013 hPa (mb)
+    // Normal sea-level is 1013 hPa; hurricanes can drop to 950 or lower
+    newData.atmosphericPressure = std::rand() % 64 + 950; // 950-1013 hPa
+    
+    // Precipitation type: 0=none, 1=rain, 2=snow, 3=hail
+    // Encoded categorical value for different precipitation types
+    newData.precipitationType = std::rand() % 4; // 0-3
+    
+    // Temperature: -20 to 25°C
+    // Flight level temperatures vary based on altitude and storm conditions
+    newData.temperature = std::rand() % 46 - 20; // -20 to 25°C
+    
+    // Wind speed: 10 to 150 knots (or 5 to 75 m/s)
+    // From calm to hurricane force winds at flight level
+    newData.windSpeed = std::rand() % 141 + 10; // 10-150 knots
+    
+    this->atmosphericPressure = newData.atmosphericPressure;
+    this->precipitationType = newData.precipitationType;
+    this->temperature = newData.temperature;
+    this->windSpeed = newData.windSpeed;
+    
+    return newData;
+    //#]
+}
+
+AircraftSensorNetwork::port_Aircraft_C* AircraftSensorNetwork::getPort_Aircraft(void) const {
+    return (AircraftSensorNetwork::port_Aircraft_C*) &port_Aircraft;
+}
+
+AircraftSensorNetwork::port_Aircraft_C* AircraftSensorNetwork::get_port_Aircraft(void) const {
+    return (AircraftSensorNetwork::port_Aircraft_C*) &port_Aircraft;
+}
+
+void AircraftSensorNetwork::setAtmosphericPressure(const int p_atmosphericPressure) {
+    atmosphericPressure = p_atmosphericPressure;
+    NOTIFY_SET_OPERATION;
+}
+
+void AircraftSensorNetwork::setPrecipitationType(const int p_precipitationType) {
+    precipitationType = p_precipitationType;
+    NOTIFY_SET_OPERATION;
+}
+
+void AircraftSensorNetwork::setTemperature(const int p_temperature) {
+    temperature = p_temperature;
+    NOTIFY_SET_OPERATION;
+}
+
+void AircraftSensorNetwork::setWindSpeed(const int p_windSpeed) {
+    windSpeed = p_windSpeed;
+    NOTIFY_SET_OPERATION;
 }
 
 const SMSWTD* AircraftSensorNetwork::getItsSMSWTD(void) const {
@@ -44,6 +156,34 @@ void AircraftSensorNetwork::setItsSMSWTD(SMSWTD* const p_SMSWTD) {
     _setItsSMSWTD(p_SMSWTD);
 }
 
+bool AircraftSensorNetwork::cancelTimeout(const IOxfTimeout* arg) {
+    bool res = false;
+    if(rootState_timeout == arg)
+        {
+            rootState_timeout = NULL;
+            res = true;
+        }
+    return res;
+}
+
+bool AircraftSensorNetwork::startBehavior(void) {
+    bool done = false;
+    done = OMReactive::startBehavior();
+    return done;
+}
+
+void AircraftSensorNetwork::initRelations(void) {
+    if (get_port_Aircraft() != NULL) {
+        get_port_Aircraft()->connectAircraftSensorNetwork(this);
+    }
+}
+
+void AircraftSensorNetwork::initStatechart(void) {
+    rootState_subState = OMNonState;
+    rootState_active = OMNonState;
+    rootState_timeout = NULL;
+}
+
 void AircraftSensorNetwork::cleanUpRelations(void) {
     if(itsSMSWTD != NULL)
         {
@@ -55,6 +195,26 @@ void AircraftSensorNetwork::cleanUpRelations(void) {
                 }
             itsSMSWTD = NULL;
         }
+}
+
+void AircraftSensorNetwork::cancelTimeouts(void) {
+    cancel(rootState_timeout);
+}
+
+int const AircraftSensorNetwork::getAtmosphericPressure(void) const {
+    return atmosphericPressure;
+}
+
+int const AircraftSensorNetwork::getPrecipitationType(void) const {
+    return precipitationType;
+}
+
+int const AircraftSensorNetwork::getTemperature(void) const {
+    return temperature;
+}
+
+int const AircraftSensorNetwork::getWindSpeed(void) const {
+    return windSpeed;
 }
 
 void AircraftSensorNetwork::__setItsSMSWTD(SMSWTD* const p_SMSWTD) {
@@ -82,18 +242,175 @@ void AircraftSensorNetwork::_clearItsSMSWTD(void) {
     itsSMSWTD = NULL;
 }
 
+void AircraftSensorNetwork::rootState_entDef(void) {
+    {
+        NOTIFY_STATE_ENTERED("ROOT");
+        NOTIFY_TRANSITION_STARTED("0");
+        NOTIFY_STATE_ENTERED("ROOT.Idle");
+        rootState_subState = Idle;
+        rootState_active = Idle;
+        //#[ state Idle.(Entry) 
+        std::cout << "Aircraft sensing is off!" << std::endl;
+        //#]
+        NOTIFY_TRANSITION_TERMINATED("0");
+    }
+}
+
+IOxfReactive::TakeEventStatus AircraftSensorNetwork::rootState_processEvent(void) {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    switch (rootState_active) {
+        // State Idle
+        case Idle:
+        {
+            if(IS_EVENT_TYPE_OF(startSensing_SMSTWD_ARCH_id) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("1");
+                    NOTIFY_STATE_EXITED("ROOT.Idle");
+                    //#[ transition 1 
+                    std::cout << "Initiating aircraft sensing..." << std::endl;
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.Sampling");
+                    rootState_subState = Sampling;
+                    rootState_active = Sampling;
+                    //#[ state Sampling.(Entry) 
+                    std::cout << "Updating aircraft data..." << std::endl;
+                    readSensorsData();
+                    //#]
+                    rootState_timeout = scheduleTimeout(2000, "ROOT.Sampling");
+                    NOTIFY_TRANSITION_TERMINATED("1");
+                    res = eventConsumed;
+                }
+            
+        }
+        break;
+        // State Sampling
+        case Sampling:
+        {
+            if(IS_EVENT_TYPE_OF(stopSensing_SMSTWD_ARCH_id) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("2");
+                    cancel(rootState_timeout);
+                    NOTIFY_STATE_EXITED("ROOT.Sampling");
+                    //#[ transition 2 
+                    std::cout << "Stopping aircraft sensing..." << std::endl;
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.Idle");
+                    rootState_subState = Idle;
+                    rootState_active = Idle;
+                    //#[ state Idle.(Entry) 
+                    std::cout << "Aircraft sensing is off!" << std::endl;
+                    //#]
+                    NOTIFY_TRANSITION_TERMINATED("2");
+                    res = eventConsumed;
+                }
+            else {
+                if(IS_EVENT_TYPE_OF(OMTimeoutEventId) == 1)
+                    {
+                        if(getCurrentEvent() == rootState_timeout)
+                            {
+                                NOTIFY_TRANSITION_STARTED("3");
+                                cancel(rootState_timeout);
+                                NOTIFY_STATE_EXITED("ROOT.Sampling");
+                                NOTIFY_STATE_ENTERED("ROOT.accepttimeevent_2");
+                                pushNullTransition();
+                                rootState_subState = accepttimeevent_2;
+                                rootState_active = accepttimeevent_2;
+                                NOTIFY_TRANSITION_TERMINATED("3");
+                                res = eventConsumed;
+                            }
+                    }
+                }
+                
+            
+        }
+        break;
+        case accepttimeevent_2:
+        {
+            if(IS_EVENT_TYPE_OF(OMNullEventId) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("4");
+                    popNullTransition();
+                    NOTIFY_STATE_EXITED("ROOT.accepttimeevent_2");
+                    NOTIFY_STATE_ENTERED("ROOT.Sampling");
+                    rootState_subState = Sampling;
+                    rootState_active = Sampling;
+                    //#[ state Sampling.(Entry) 
+                    std::cout << "Updating aircraft data..." << std::endl;
+                    readSensorsData();
+                    //#]
+                    rootState_timeout = scheduleTimeout(2000, "ROOT.Sampling");
+                    NOTIFY_TRANSITION_TERMINATED("4");
+                    res = eventConsumed;
+                }
+            
+        }
+        break;
+        default:
+            break;
+    }
+    return res;
+}
+
 #ifdef _OMINSTRUMENT
 //#[ ignore
+void OMAnimatedAircraftSensorNetwork::serializeAttributes(AOMSAttributes* aomsAttributes) const {
+    aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
+    aomsAttributes->addAttribute("atmosphericPressure", x2String(myReal->atmosphericPressure));
+    aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
+    aomsAttributes->addAttribute("temperature", x2String(myReal->temperature));
+    OMAnimatedAircraftDataInterface::serializeAttributes(aomsAttributes);
+}
+
 void OMAnimatedAircraftSensorNetwork::serializeRelations(AOMSRelations* aomsRelations) const {
     aomsRelations->addRelation("itsSMSWTD", false, true);
     if(myReal->itsSMSWTD)
         {
             aomsRelations->ADD_ITEM(myReal->itsSMSWTD);
         }
+    OMAnimatedAircraftDataInterface::serializeRelations(aomsRelations);
+}
+
+void OMAnimatedAircraftSensorNetwork::rootState_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT");
+    switch (myReal->rootState_subState) {
+        case AircraftSensorNetwork::Idle:
+        {
+            Idle_serializeStates(aomsState);
+        }
+        break;
+        case AircraftSensorNetwork::Sampling:
+        {
+            Sampling_serializeStates(aomsState);
+        }
+        break;
+        case AircraftSensorNetwork::accepttimeevent_2:
+        {
+            accepttimeevent_2_serializeStates(aomsState);
+        }
+        break;
+        default:
+            break;
+    }
+}
+
+void OMAnimatedAircraftSensorNetwork::Sampling_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.Sampling");
+}
+
+void OMAnimatedAircraftSensorNetwork::Idle_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.Idle");
+}
+
+void OMAnimatedAircraftSensorNetwork::accepttimeevent_2_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.accepttimeevent_2");
 }
 //#]
 
-IMPLEMENT_META_P(AircraftSensorNetwork, SMSTWD_ARCH, SMSTWD_ARCH, false, OMAnimatedAircraftSensorNetwork)
+IMPLEMENT_REACTIVE_META_S_P(AircraftSensorNetwork, SMSTWD_ARCH, false, AircraftDataInterface, OMAnimatedAircraftDataInterface, OMAnimatedAircraftSensorNetwork)
+
+OMINIT_SUPERCLASS(AircraftDataInterface, OMAnimatedAircraftDataInterface)
+
+OMREGISTER_REACTIVE_CLASS
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

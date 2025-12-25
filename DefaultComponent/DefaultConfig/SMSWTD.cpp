@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Mon, 22, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.cpp
 *********************************************************************/
 
@@ -27,7 +27,11 @@
 //#[ ignore
 #define SMSTWD_ARCH_SMSWTD_SMSWTD_SERIALIZE OM_NO_OP
 
-#define SMSTWD_ARCH_SMSWTD_getSensorData_SERIALIZE OM_NO_OP
+#define SMSTWD_ARCH_SMSWTD_getAircraftData_SERIALIZE OM_NO_OP
+
+#define SMSTWD_ARCH_SMSWTD_getSensorsData_SERIALIZE OM_NO_OP
+
+#define SMSTWD_ARCH_SMSWTD_getUnderwaterData_SERIALIZE OM_NO_OP
 
 #define SMSTWD_ARCH_SMSWTD_run_SERIALIZE OM_NO_OP
 //#]
@@ -51,10 +55,10 @@ SensorDataInterface* SMSWTD::port_Ocean_C::getOutBound(void) {
     return this;
 }
 
-underwaterSensorData SMSWTD::port_Ocean_C::readUnderwaterSensorData(void) {
+underwaterSensorData SMSWTD::port_Ocean_C::readUnderwaterSensorsData(void) {
     underwaterSensorData res;
     if (itsSensorDataInterface != NULL) {
-        res = itsSensorDataInterface->readUnderwaterSensorData();
+        res = itsSensorDataInterface->readUnderwaterSensorsData();
     }
     return res;
 }
@@ -69,9 +73,77 @@ void SMSWTD::port_Ocean_C::cleanUpRelations(void) {
             itsSensorDataInterface = NULL;
         }
 }
+
+SMSWTD::port_Satellite_C::port_Satellite_C(void) : SatelliteDataInterface(), _p_(0), itsSatelliteDataInterface(NULL) {
+}
+
+SMSWTD::port_Satellite_C::~port_Satellite_C(void) {
+    cleanUpRelations();
+}
+
+SatelliteDataInterface* SMSWTD::port_Satellite_C::getItsSatelliteDataInterface(void) {
+    return this;
+}
+
+SatelliteDataInterface* SMSWTD::port_Satellite_C::getOutBound(void) {
+    return this;
+}
+
+satelliteData SMSWTD::port_Satellite_C::readSatelliteData(void) {
+    satelliteData res;
+    if (itsSatelliteDataInterface != NULL) {
+        res = itsSatelliteDataInterface->readSatelliteData();
+    }
+    return res;
+}
+
+void SMSWTD::port_Satellite_C::setItsSatelliteDataInterface(SatelliteDataInterface* const p_SatelliteDataInterface) {
+    itsSatelliteDataInterface = p_SatelliteDataInterface;
+}
+
+void SMSWTD::port_Satellite_C::cleanUpRelations(void) {
+    if(itsSatelliteDataInterface != NULL)
+        {
+            itsSatelliteDataInterface = NULL;
+        }
+}
+
+SMSWTD::port_Aircraft_C::port_Aircraft_C(void) : AircraftDataInterface(), _p_(0), itsAircraftDataInterface(NULL) {
+}
+
+SMSWTD::port_Aircraft_C::~port_Aircraft_C(void) {
+    cleanUpRelations();
+}
+
+AircraftDataInterface* SMSWTD::port_Aircraft_C::getItsAircraftDataInterface(void) {
+    return this;
+}
+
+AircraftDataInterface* SMSWTD::port_Aircraft_C::getOutBound(void) {
+    return this;
+}
+
+aircraftData SMSWTD::port_Aircraft_C::readAircraftSensorsData(void) {
+    aircraftData res;
+    if (itsAircraftDataInterface != NULL) {
+        res = itsAircraftDataInterface->readAircraftSensorsData();
+    }
+    return res;
+}
+
+void SMSWTD::port_Aircraft_C::setItsAircraftDataInterface(AircraftDataInterface* const p_AircraftDataInterface) {
+    itsAircraftDataInterface = p_AircraftDataInterface;
+}
+
+void SMSWTD::port_Aircraft_C::cleanUpRelations(void) {
+    if(itsAircraftDataInterface != NULL)
+        {
+            itsAircraftDataInterface = NULL;
+        }
+}
 //#]
 
-SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), horizontalAcceleration(20), verticalAcceleration(20), itsAircraftSensorNetwork(NULL), itsAlertRecipients(NULL), itsSatelliteSystem(NULL), itsUnderwaterSeismicSensorNetwork(NULL) {
+SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), AnalysisInputInterfaces(), itsAircraftSensorNetwork(NULL), itsAlertRecipients(NULL), itsSatelliteSystem(NULL), itsUnderwaterSeismicSensorNetwork(NULL) {
     NOTIFY_REACTIVE_CONSTRUCTOR(SMSWTD, SMSWTD(), 0, SMSTWD_ARCH_SMSWTD_SMSWTD_SERIALIZE);
     setActiveContext(theActiveContext, false);
     {
@@ -83,19 +155,24 @@ SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), horizontalAcc
 }
 
 SMSWTD::~SMSWTD(void) {
-    NOTIFY_DESTRUCTOR(~SMSWTD, true);
+    NOTIFY_DESTRUCTOR(~SMSWTD, false);
     cleanUpRelations();
+    cancelTimeouts();
 }
 
-underwaterSensorData SMSWTD::getSensorData(void) {
-    NOTIFY_OPERATION(getSensorData, getSensorData(), 0, SMSTWD_ARCH_SMSWTD_getSensorData_SERIALIZE);
-    //#[ operation getSensorData()
-    underwaterSensorData newData;
+void SMSWTD::getSensorsData(void) {
+    NOTIFY_OPERATION(getSensorsData, getSensorsData(), 0, SMSTWD_ARCH_SMSWTD_getSensorsData_SERIALIZE);
+    //#[ operation getSensorsData()
+    getUnderwaterData();
+    getAircraftData();
     
-    newData.horizontalAcceleration = itsUnderwaterSeismicSensorNetwork->getHorizontalAcceleration();
-    newData.verticalAcceleration = itsUnderwaterSeismicSensorNetwork->getVerticalAcceleration();
+    //underwaterSensorData data = OUT_PORT(port_Ocean)->readUnderwaterSensorData();
     
-    return newData;
+    //int sensorHorizontalAcceleration = data.horizontalAcceleration;
+    //int sensorVerticalAcceleration = data.verticalAcceleration;
+    
+    //this->horizontalAcceleration = sensorHorizontalAcceleration;
+    //this->verticalAcceleration = sensorVerticalAcceleration;
     //#]
 }
 
@@ -116,6 +193,31 @@ void SMSWTD::run(void) {
     //#]
 }
 
+void SMSWTD::getAircraftData(void) {
+    NOTIFY_OPERATION(getAircraftData, getAircraftData(), 0, SMSTWD_ARCH_SMSWTD_getAircraftData_SERIALIZE);
+    //#[ operation getAircraftData()
+    aircraftData data = OUT_PORT(port_Aircraft)->readAircraftSensorsData();
+    
+    this->atmosphericPressure = data.atmosphericPressure;
+    this->precipitationType = data.precipitationType;
+    this->temperature = data.temperature;
+    this->windSpeed = data.windSpeed;
+    //#]
+}
+
+void SMSWTD::getUnderwaterData(void) {
+    NOTIFY_OPERATION(getUnderwaterData, getUnderwaterData(), 0, SMSTWD_ARCH_SMSWTD_getUnderwaterData_SERIALIZE);
+    //#[ operation getUnderwaterData()
+    underwaterSensorData data = OUT_PORT(port_Ocean)->readUnderwaterSensorsData();
+    
+    int sensorHorizontalAcceleration = data.horizontalAcceleration;
+    int sensorVerticalAcceleration = data.verticalAcceleration;
+    
+    this->horizontalAcceleration = sensorHorizontalAcceleration;
+    this->verticalAcceleration = sensorVerticalAcceleration;
+    //#]
+}
+
 SMSWTD::port_Ocean_C* SMSWTD::getPort_Ocean(void) const {
     return (SMSWTD::port_Ocean_C*) &port_Ocean;
 }
@@ -124,12 +226,61 @@ SMSWTD::port_Ocean_C* SMSWTD::get_port_Ocean(void) const {
     return (SMSWTD::port_Ocean_C*) &port_Ocean;
 }
 
+SMSWTD::port_Satellite_C* SMSWTD::getPort_Satellite(void) const {
+    return (SMSWTD::port_Satellite_C*) &port_Satellite;
+}
+
+SMSWTD::port_Satellite_C* SMSWTD::get_port_Satellite(void) const {
+    return (SMSWTD::port_Satellite_C*) &port_Satellite;
+}
+
+SMSWTD::port_Aircraft_C* SMSWTD::getPort_Aircraft(void) const {
+    return (SMSWTD::port_Aircraft_C*) &port_Aircraft;
+}
+
+SMSWTD::port_Aircraft_C* SMSWTD::get_port_Aircraft(void) const {
+    return (SMSWTD::port_Aircraft_C*) &port_Aircraft;
+}
+
+int const SMSWTD::getAtmosphericPressure(void) const {
+    return atmosphericPressure;
+}
+
+void SMSWTD::setAtmosphericPressure(const int p_atmosphericPressure) {
+    atmosphericPressure = p_atmosphericPressure;
+}
+
 int const SMSWTD::getHorizontalAcceleration(void) const {
     return horizontalAcceleration;
 }
 
 void SMSWTD::setHorizontalAcceleration(const int p_horizontalAcceleration) {
     horizontalAcceleration = p_horizontalAcceleration;
+    NOTIFY_SET_OPERATION;
+}
+
+int const SMSWTD::getPrecipitationType(void) const {
+    return precipitationType;
+}
+
+void SMSWTD::setPrecipitationType(const int p_precipitationType) {
+    precipitationType = p_precipitationType;
+}
+
+int const SMSWTD::getTemperature(void) const {
+    return temperature;
+}
+
+void SMSWTD::setTemperature(const int p_temperature) {
+    temperature = p_temperature;
+}
+
+underwaterSensorData const SMSWTD::getUndewaterData(void) const {
+    return undewaterData;
+}
+
+void SMSWTD::setUndewaterData(const underwaterSensorData p_undewaterData) {
+    undewaterData = p_undewaterData;
 }
 
 int const SMSWTD::getVerticalAcceleration(void) const {
@@ -139,6 +290,14 @@ int const SMSWTD::getVerticalAcceleration(void) const {
 void SMSWTD::setVerticalAcceleration(const int p_verticalAcceleration) {
     verticalAcceleration = p_verticalAcceleration;
     NOTIFY_SET_OPERATION;
+}
+
+int const SMSWTD::getWindSpeed(void) const {
+    return windSpeed;
+}
+
+void SMSWTD::setWindSpeed(const int p_windSpeed) {
+    windSpeed = p_windSpeed;
 }
 
 const AircraftSensorNetwork* SMSWTD::getItsAircraftSensorNetwork(void) const {
@@ -209,6 +368,16 @@ void SMSWTD::setItsUnderwaterSeismicSensorNetwork(UnderwaterSeismicSensorNetwork
     _setItsUnderwaterSeismicSensorNetwork(p_UnderwaterSeismicSensorNetwork);
 }
 
+bool SMSWTD::cancelTimeout(const IOxfTimeout* arg) {
+    bool res = false;
+    if(rootState_timeout == arg)
+        {
+            rootState_timeout = NULL;
+            res = true;
+        }
+    return res;
+}
+
 bool SMSWTD::startBehavior(void) {
     bool done = true;
     if(done == true)
@@ -225,6 +394,7 @@ bool SMSWTD::startBehavior(void) {
 void SMSWTD::initStatechart(void) {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
+    rootState_timeout = NULL;
 }
 
 void SMSWTD::cleanUpRelations(void) {
@@ -268,6 +438,10 @@ void SMSWTD::cleanUpRelations(void) {
                 }
             itsUnderwaterSeismicSensorNetwork = NULL;
         }
+}
+
+void SMSWTD::cancelTimeouts(void) {
+    cancel(rootState_timeout);
 }
 
 bool const SMSWTD::getIsRunning(void) const {
@@ -405,43 +579,101 @@ void SMSWTD::rootState_entDef(void) {
         NOTIFY_STATE_ENTERED("ROOT.Off");
         rootState_subState = Off;
         rootState_active = Off;
+        //#[ state Off.(Entry) 
+        std::cout << "SMSWTD is off!" << std::endl;
+        //#]
         NOTIFY_TRANSITION_TERMINATED("0");
     }
 }
 
 IOxfReactive::TakeEventStatus SMSWTD::rootState_processEvent(void) {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    // State Off
-    if(rootState_active == Off)
+    switch (rootState_active) {
+        // State Off
+        case Off:
         {
-            if(IS_EVENT_TYPE_OF(evSMSWTDOn_SMSTWD_ARCH_id) == 1)
+            if(IS_EVENT_TYPE_OF(turn_on_SMSTWD_ARCH_id) == 1)
                 {
                     NOTIFY_TRANSITION_STARTED("1");
                     NOTIFY_STATE_EXITED("ROOT.Off");
                     //#[ transition 1 
-                    underwaterSensorData data = OUT_PORT(port_Ocean)->readUnderwaterSensorData();
-                    int sensorHorizontalAcceleration = data.horizontalAcceleration;
-                    int sensorVerticalAcceleration = data.verticalAcceleration;
-                    
-                    this->horizontalAcceleration = sensorHorizontalAcceleration;
-                    this->verticalAcceleration = sensorVerticalAcceleration;
+                    std::cout << "Turning on SMSWTD..." << std::endl;
                     //#]
                     NOTIFY_STATE_ENTERED("ROOT.On");
                     rootState_subState = On;
                     rootState_active = On;
                     //#[ state On.(Entry) 
-                    data = OUT_PORT(port_Ocean)->readUnderwaterSensorData();
-                    sensorHorizontalAcceleration = data.horizontalAcceleration;
-                    sensorVerticalAcceleration = data.verticalAcceleration;
+                    std::cout << "SMSWTD is on!" << std::endl;
                     
-                    this->horizontalAcceleration = sensorHorizontalAcceleration;
-                    this->verticalAcceleration = sensorVerticalAcceleration;
+                    getSensorsData();
+                    
+                    //underwaterSensorData data = OUT_PORT(port_Ocean)->readUnderwaterSensorData();
+                    //int sensorHorizontalAcceleration = data.horizontalAcceleration;
+                    //int sensorVerticalAcceleration = data.verticalAcceleration;
+                    
+                    //this->horizontalAcceleration = sensorHorizontalAcceleration;
+                    //this->verticalAcceleration = sensorVerticalAcceleration;
                     //#]
+                    rootState_timeout = scheduleTimeout(3000, "ROOT.On");
                     NOTIFY_TRANSITION_TERMINATED("1");
                     res = eventConsumed;
                 }
             
         }
+        break;
+        // State On
+        case On:
+        {
+            if(IS_EVENT_TYPE_OF(OMTimeoutEventId) == 1)
+                {
+                    if(getCurrentEvent() == rootState_timeout)
+                        {
+                            NOTIFY_TRANSITION_STARTED("2");
+                            cancel(rootState_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.On");
+                            NOTIFY_STATE_ENTERED("ROOT.SMSWTDSensorsTimeEvent");
+                            pushNullTransition();
+                            rootState_subState = SMSWTDSensorsTimeEvent;
+                            rootState_active = SMSWTDSensorsTimeEvent;
+                            NOTIFY_TRANSITION_TERMINATED("2");
+                            res = eventConsumed;
+                        }
+                }
+            
+        }
+        break;
+        case SMSWTDSensorsTimeEvent:
+        {
+            if(IS_EVENT_TYPE_OF(OMNullEventId) == 1)
+                {
+                    NOTIFY_TRANSITION_STARTED("3");
+                    popNullTransition();
+                    NOTIFY_STATE_EXITED("ROOT.SMSWTDSensorsTimeEvent");
+                    NOTIFY_STATE_ENTERED("ROOT.On");
+                    rootState_subState = On;
+                    rootState_active = On;
+                    //#[ state On.(Entry) 
+                    std::cout << "SMSWTD is on!" << std::endl;
+                    
+                    getSensorsData();
+                    
+                    //underwaterSensorData data = OUT_PORT(port_Ocean)->readUnderwaterSensorData();
+                    //int sensorHorizontalAcceleration = data.horizontalAcceleration;
+                    //int sensorVerticalAcceleration = data.verticalAcceleration;
+                    
+                    //this->horizontalAcceleration = sensorHorizontalAcceleration;
+                    //this->verticalAcceleration = sensorVerticalAcceleration;
+                    //#]
+                    rootState_timeout = scheduleTimeout(3000, "ROOT.On");
+                    NOTIFY_TRANSITION_TERMINATED("3");
+                    res = eventConsumed;
+                }
+            
+        }
+        break;
+        default:
+            break;
+    }
     return res;
 }
 
@@ -452,6 +684,12 @@ void OMAnimatedSMSWTD::serializeAttributes(AOMSAttributes* aomsAttributes) const
     aomsAttributes->addAttribute("isRunning", x2String(myReal->isRunning));
     aomsAttributes->addAttribute("verticalAcceleration", x2String(myReal->verticalAcceleration));
     aomsAttributes->addAttribute("horizontalAcceleration", x2String(myReal->horizontalAcceleration));
+    aomsAttributes->addAttribute("atmosphericPressure", x2String(myReal->atmosphericPressure));
+    aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
+    aomsAttributes->addAttribute("temperature", x2String(myReal->temperature));
+    aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
+    aomsAttributes->addAttribute("undewaterData", UNKNOWN2STRING(myReal->undewaterData));
+    OMAnimatedAnalysisInputInterfaces::serializeAttributes(aomsAttributes);
 }
 
 void OMAnimatedSMSWTD::serializeRelations(AOMSRelations* aomsRelations) const {
@@ -485,6 +723,7 @@ void OMAnimatedSMSWTD::serializeRelations(AOMSRelations* aomsRelations) const {
         {
             aomsRelations->ADD_ITEM(myReal->itsAlertRecipients);
         }
+    OMAnimatedAnalysisInputInterfaces::serializeRelations(aomsRelations);
 }
 
 void OMAnimatedSMSWTD::rootState_serializeStates(AOMSState* aomsState) const {
@@ -500,9 +739,18 @@ void OMAnimatedSMSWTD::rootState_serializeStates(AOMSState* aomsState) const {
             On_serializeStates(aomsState);
         }
         break;
+        case SMSWTD::SMSWTDSensorsTimeEvent:
+        {
+            SMSWTDSensorsTimeEvent_serializeStates(aomsState);
+        }
+        break;
         default:
             break;
     }
+}
+
+void OMAnimatedSMSWTD::SMSWTDSensorsTimeEvent_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.SMSWTDSensorsTimeEvent");
 }
 
 void OMAnimatedSMSWTD::On_serializeStates(AOMSState* aomsState) const {
@@ -514,7 +762,11 @@ void OMAnimatedSMSWTD::Off_serializeStates(AOMSState* aomsState) const {
 }
 //#]
 
-IMPLEMENT_REACTIVE_META_P(SMSWTD, SMSTWD_ARCH, SMSTWD_ARCH, false, OMAnimatedSMSWTD)
+IMPLEMENT_REACTIVE_META_S_P(SMSWTD, SMSTWD_ARCH, false, AnalysisInputInterfaces, OMAnimatedAnalysisInputInterfaces, OMAnimatedSMSWTD)
+
+OMINIT_SUPERCLASS(AnalysisInputInterfaces, OMAnimatedAnalysisInputInterfaces)
+
+OMREGISTER_REACTIVE_CLASS
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

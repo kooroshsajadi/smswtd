@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SecurityAndAccessControl
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SecurityAndAccessControl.cpp
 *********************************************************************/
 
@@ -18,8 +18,6 @@
 #include "SecurityAndAccessControl.h"
 //## link itsAdministrator
 #include "Administrator.h"
-//## link itsHumanMachineInterface
-#include "HumanMachineInterface.h"
 //#[ ignore
 #define SMSTWD_ARCH_SecurityAndAccessControl_SecurityAndAccessControl_SERIALIZE OM_NO_OP
 
@@ -31,7 +29,7 @@
 //## package SMSTWD_ARCH
 
 //## class SecurityAndAccessControl
-SecurityAndAccessControl::SecurityAndAccessControl(IOxfActive* const theActiveContext) : OMReactive(), itsAdministrator(NULL), itsHumanMachineInterface(NULL) {
+SecurityAndAccessControl::SecurityAndAccessControl(IOxfActive* const theActiveContext) : OMReactive(), itsAdministrator(NULL) {
     NOTIFY_REACTIVE_CONSTRUCTOR(SecurityAndAccessControl, SecurityAndAccessControl(), 0, SMSTWD_ARCH_SecurityAndAccessControl_SecurityAndAccessControl_SERIALIZE);
     setActiveContext(theActiveContext, false);
     initStatechart();
@@ -73,18 +71,6 @@ void SecurityAndAccessControl::setItsAdministrator(Administrator* const p_Admini
     _setItsAdministrator(p_Administrator);
 }
 
-const HumanMachineInterface* SecurityAndAccessControl::getItsHumanMachineInterface(void) const {
-    return itsHumanMachineInterface;
-}
-
-void SecurityAndAccessControl::setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface) {
-    if(p_HumanMachineInterface != NULL)
-        {
-            p_HumanMachineInterface->_setItsSecurityAndAccessControl(this);
-        }
-    _setItsHumanMachineInterface(p_HumanMachineInterface);
-}
-
 bool SecurityAndAccessControl::startBehavior(void) {
     bool done = false;
     done = OMReactive::startBehavior();
@@ -106,16 +92,6 @@ void SecurityAndAccessControl::cleanUpRelations(void) {
                     itsAdministrator->__setItsSecurityAndAccessControl(NULL);
                 }
             itsAdministrator = NULL;
-        }
-    if(itsHumanMachineInterface != NULL)
-        {
-            NOTIFY_RELATION_CLEARED("itsHumanMachineInterface");
-            const SecurityAndAccessControl* p_SecurityAndAccessControl = itsHumanMachineInterface->getItsSecurityAndAccessControl();
-            if(p_SecurityAndAccessControl != NULL)
-                {
-                    itsHumanMachineInterface->__setItsSecurityAndAccessControl(NULL);
-                }
-            itsHumanMachineInterface = NULL;
         }
 }
 
@@ -144,31 +120,6 @@ void SecurityAndAccessControl::_clearItsAdministrator(void) {
     itsAdministrator = NULL;
 }
 
-void SecurityAndAccessControl::__setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface) {
-    itsHumanMachineInterface = p_HumanMachineInterface;
-    if(p_HumanMachineInterface != NULL)
-        {
-            NOTIFY_RELATION_ITEM_ADDED("itsHumanMachineInterface", p_HumanMachineInterface, false, true);
-        }
-    else
-        {
-            NOTIFY_RELATION_CLEARED("itsHumanMachineInterface");
-        }
-}
-
-void SecurityAndAccessControl::_setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface) {
-    if(itsHumanMachineInterface != NULL)
-        {
-            itsHumanMachineInterface->__setItsSecurityAndAccessControl(NULL);
-        }
-    __setItsHumanMachineInterface(p_HumanMachineInterface);
-}
-
-void SecurityAndAccessControl::_clearItsHumanMachineInterface(void) {
-    NOTIFY_RELATION_CLEARED("itsHumanMachineInterface");
-    itsHumanMachineInterface = NULL;
-}
-
 void SecurityAndAccessControl::rootState_entDef(void) {
     {
         NOTIFY_STATE_ENTERED("ROOT");
@@ -187,11 +138,6 @@ void OMAnimatedSecurityAndAccessControl::serializeRelations(AOMSRelations* aomsR
     if(myReal->itsAdministrator)
         {
             aomsRelations->ADD_ITEM(myReal->itsAdministrator);
-        }
-    aomsRelations->addRelation("itsHumanMachineInterface", false, true);
-    if(myReal->itsHumanMachineInterface)
-        {
-            aomsRelations->ADD_ITEM(myReal->itsHumanMachineInterface);
         }
 }
 

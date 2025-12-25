@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: DataProcessingAndAnalyticsSubsystem
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\DataProcessingAndAnalyticsSubsystem.h
 *********************************************************************/
 
@@ -43,6 +43,42 @@ public :
     virtual void processData(void);
     
     ////    Additional operations    ////
+    
+    //## auto_generated
+    int const getAtmosphericPressure(void) const;
+    
+    //## auto_generated
+    void setAtmosphericPressure(const int p_atmosphericPressure);
+    
+    //## auto_generated
+    int const getHorizontalAcceleration(void) const;
+    
+    //## auto_generated
+    void setHorizontalAcceleration(const int p_horizontalAcceleration);
+    
+    //## auto_generated
+    int const getPrecipitationType(void) const;
+    
+    //## auto_generated
+    void setPrecipitationType(const int p_precipitationType);
+    
+    //## auto_generated
+    int const getTemperature(void) const;
+    
+    //## auto_generated
+    void setTemperature(const int p_temperature);
+    
+    //## auto_generated
+    int const getVerticalAcceleration(void) const;
+    
+    //## auto_generated
+    void setVerticalAcceleration(const int p_verticalAcceleration);
+    
+    //## auto_generated
+    int const getWindSpeed(void) const;
+    
+    //## auto_generated
+    void setWindSpeed(const int p_windSpeed);
 
 private :
 
@@ -60,7 +96,19 @@ private :
     
     ////    Attributes    ////
     
+    int atmosphericPressure;		//## attribute atmosphericPressure
+    
+    int horizontalAcceleration;		//## attribute horizontalAcceleration
+    
     char* modelVersion;		//## attribute modelVersion
+    
+    int precipitationType;		//## attribute precipitationType
+    
+    int temperature;		//## attribute temperature
+    
+    int verticalAcceleration;		//## attribute verticalAcceleration
+    
+    int windSpeed;		//## attribute windSpeed
     
     int windowSize;		//## attribute windowSize
 };

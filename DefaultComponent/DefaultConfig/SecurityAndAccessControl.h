@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SecurityAndAccessControl
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SecurityAndAccessControl.h
 *********************************************************************/
 
@@ -27,9 +27,6 @@
 #include <event.h>
 //## link itsAdministrator
 class Administrator;
-
-//## link itsHumanMachineInterface
-class HumanMachineInterface;
 
 //## package SMSTWD_ARCH
 
@@ -68,12 +65,6 @@ public :
     void setItsAdministrator(Administrator* const p_Administrator);
     
     //## auto_generated
-    const HumanMachineInterface* getItsHumanMachineInterface(void) const;
-    
-    //## auto_generated
-    void setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
     virtual bool startBehavior(void);
 
 protected :
@@ -90,8 +81,6 @@ private :
 
     Administrator* itsAdministrator;		//## link itsAdministrator
     
-    HumanMachineInterface* itsHumanMachineInterface;		//## link itsHumanMachineInterface
-    
     ////    Framework operations    ////
 
 public :
@@ -104,15 +93,6 @@ public :
     
     //## auto_generated
     void _clearItsAdministrator(void);
-    
-    //## auto_generated
-    void __setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
-    void _setItsHumanMachineInterface(HumanMachineInterface* const p_HumanMachineInterface);
-    
-    //## auto_generated
-    void _clearItsHumanMachineInterface(void);
     
     // rootState:
     //## statechart_method

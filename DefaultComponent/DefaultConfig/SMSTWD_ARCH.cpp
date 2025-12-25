@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Sat, 20, Dec 2025  
+//!	Generated Date	: Thu, 25, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
 *********************************************************************/
 
@@ -14,6 +14,12 @@
 
 //## auto_generated
 #include "SMSTWD_ARCH.h"
+//## classInstance itsAircraftSensorNetwork
+#include "AircraftSensorNetwork.h"
+//## classInstance itsDataProcessingAndAnalyticsSubsystem
+#include "DataProcessingAndAnalyticsSubsystem.h"
+//## classInstance itsSatelliteSystem
+#include "SatelliteSystem.h"
 //## classInstance itsSMSWTD
 #include "SMSWTD.h"
 //## classInstance itsUnderwaterSeismicSensorNetwork
@@ -21,23 +27,17 @@
 //## auto_generated
 #include "Administrator.h"
 //## auto_generated
-#include "AircraftSensorNetwork.h"
+#include "AircraftDataInterface.h"
 //## auto_generated
 #include "AlertRecipients.h"
-//## auto_generated
-#include "AnalysisInputInterface.h"
 //## auto_generated
 #include "AnalysisInputInterfaces.h"
 //## auto_generated
 #include "DataCollectionSubsystem.h"
 //## auto_generated
-#include "DataProcessingAndAnalyticsSubsystem.h"
-//## auto_generated
-#include "HumanMachineInterface.h"
-//## auto_generated
 #include "RiskAssessmentAndAlertingSubsystem.h"
 //## auto_generated
-#include "SatelliteSystem.h"
+#include "SatelliteDataInterface.h"
 //## auto_generated
 #include "SecurityAndAccessControl.h"
 //## auto_generated
@@ -68,13 +68,43 @@
 #define stopSensing_UNSERIALIZE OM_NO_OP
 
 #define stopSensing_CONSTRUCTOR stopSensing()
+
+#define SMSTD_On_SERIALIZE OM_NO_OP
+
+#define SMSTD_On_UNSERIALIZE OM_NO_OP
+
+#define SMSTD_On_CONSTRUCTOR SMSTD_On()
+
+#define turn_on_SERIALIZE OM_NO_OP
+
+#define turn_on_UNSERIALIZE OM_NO_OP
+
+#define turn_on_CONSTRUCTOR turn_on()
+
+#define start_sensing_SERIALIZE OM_NO_OP
+
+#define start_sensing_UNSERIALIZE OM_NO_OP
+
+#define start_sensing_CONSTRUCTOR start_sensing()
 //#]
 
 //## package SMSTWD_ARCH
 
 
+//## classInstance itsAircraftSensorNetwork
+AircraftSensorNetwork itsAircraftSensorNetwork;
+
+//## classInstance itsDataProcessingAndAnalyticsSubsystem
+DataProcessingAndAnalyticsSubsystem itsDataProcessingAndAnalyticsSubsystem;
+
 //## classInstance itsSMSWTD
 SMSWTD itsSMSWTD;
+
+//## classInstance itsSMSWTD_1
+SMSWTD itsSMSWTD_1;
+
+//## classInstance itsSatelliteSystem
+SatelliteSystem itsSatelliteSystem;
 
 //## classInstance itsUnderwaterSeismicSensorNetwork
 UnderwaterSeismicSensorNetwork itsUnderwaterSeismicSensorNetwork;
@@ -95,10 +125,29 @@ void SMSTWD_ARCH_initRelations(void) {
         {
             itsUnderwaterSeismicSensorNetwork.setShouldDelete(false);
         }
+        {
+            itsSatelliteSystem.setShouldDelete(false);
+        }
+        {
+            itsAircraftSensorNetwork.setShouldDelete(false);
+        }
+        {
+            itsSMSWTD_1.setShouldDelete(false);
+        }
     }
     {
         
         itsSMSWTD.get_port_Ocean()->setItsSensorDataInterface(itsUnderwaterSeismicSensorNetwork.get_port_Ocean()->getItsSensorDataInterface());
+        
+    }
+    {
+        
+        itsSMSWTD.get_port_Satellite()->setItsSatelliteDataInterface(itsSatelliteSystem.get_port_Satellite()->getItsSatelliteDataInterface());
+        
+    }
+    {
+        
+        itsSMSWTD.get_port_Aircraft()->setItsAircraftDataInterface(itsAircraftSensorNetwork.get_port_Aircraft()->getItsAircraftDataInterface());
         
     }
     
@@ -111,7 +160,19 @@ bool SMSTWD_ARCH_startBehavior(void) {
     bool done = true;
     if(done == true)
         {
+            done = itsAircraftSensorNetwork.startBehavior();
+        }
+    if(done == true)
+        {
             done = itsSMSWTD.startBehavior();
+        }
+    if(done == true)
+        {
+            done = itsSMSWTD_1.startBehavior();
+        }
+    if(done == true)
+        {
+            done = itsSatelliteSystem.startBehavior();
         }
     if(done == true)
         {
@@ -127,6 +188,10 @@ static void serializeGlobalVars(AOMSAttributes* /* aomsAttributes */) {
 static void RenameGlobalInstances(void) {
     OM_SET_INSTANCE_NAME(&itsSMSWTD, SMSWTD, "itsSMSWTD", AOMNoMultiplicity);
     OM_SET_INSTANCE_NAME(&itsUnderwaterSeismicSensorNetwork, UnderwaterSeismicSensorNetwork, "itsUnderwaterSeismicSensorNetwork", AOMNoMultiplicity);
+    OM_SET_INSTANCE_NAME(&itsSatelliteSystem, SatelliteSystem, "itsSatelliteSystem", AOMNoMultiplicity);
+    OM_SET_INSTANCE_NAME(&itsAircraftSensorNetwork, AircraftSensorNetwork, "itsAircraftSensorNetwork", AOMNoMultiplicity);
+    OM_SET_INSTANCE_NAME(&itsSMSWTD_1, SMSWTD, "itsSMSWTD_1", AOMNoMultiplicity);
+    OM_SET_INSTANCE_NAME(&itsDataProcessingAndAnalyticsSubsystem, DataProcessingAndAnalyticsSubsystem, "itsDataProcessingAndAnalyticsSubsystem", AOMNoMultiplicity);
 }
 #endif // _OMINSTRUMENT
 
@@ -187,6 +252,42 @@ const IOxfEvent::ID stopSensing_SMSTWD_ARCH_id(18604);
 //#]
 
 IMPLEMENT_META_EVENT_P(stopSensing, SMSTWD_ARCH, SMSTWD_ARCH, stopSensing())
+
+//## event SMSTD_On()
+SMSTD_On::SMSTD_On(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(SMSTD_On)
+    setId(SMSTD_On_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID SMSTD_On_SMSTWD_ARCH_id(18605);
+//#]
+
+IMPLEMENT_META_EVENT_P(SMSTD_On, SMSTWD_ARCH, SMSTWD_ARCH, SMSTD_On())
+
+//## event turn_on()
+turn_on::turn_on(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(turn_on)
+    setId(turn_on_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID turn_on_SMSTWD_ARCH_id(18606);
+//#]
+
+IMPLEMENT_META_EVENT_P(turn_on, SMSTWD_ARCH, SMSTWD_ARCH, turn_on())
+
+//## event start_sensing()
+start_sensing::start_sensing(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(start_sensing)
+    setId(start_sensing_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID start_sensing_SMSTWD_ARCH_id(18607);
+//#]
+
+IMPLEMENT_META_EVENT_P(start_sensing, SMSTWD_ARCH, SMSTWD_ARCH, start_sensing())
 
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
