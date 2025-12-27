@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: DataProcessingAndAnalyticsSubsystem
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\DataProcessingAndAnalyticsSubsystem.cpp
 *********************************************************************/
 
@@ -19,6 +19,8 @@
 //#[ ignore
 #define SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_DataProcessingAndAnalyticsSubsystem_SERIALIZE OM_NO_OP
 
+#define SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_calculateGroundAcceleration_SERIALIZE OM_NO_OP
+
 #define SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_processData_SERIALIZE OM_NO_OP
 //#]
 
@@ -26,60 +28,46 @@
 
 //## class DataProcessingAndAnalyticsSubsystem
 //#[ ignore
-DataProcessingAndAnalyticsSubsystem::port_Analytics_C::port_Analytics_C(void) : SMSWTDInterface(), _p_(0), itsSMSWTDInterface(NULL) {
+DataProcessingAndAnalyticsSubsystem::port_Analytics_C::port_Analytics_C(void) : underwaterSensorData_underwaterData_ProxyFlowPropertyInterface(), _p_(0), itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(NULL) {
 }
 
 DataProcessingAndAnalyticsSubsystem::port_Analytics_C::~port_Analytics_C(void) {
     cleanUpRelations();
 }
 
-SMSWTDInterface* DataProcessingAndAnalyticsSubsystem::port_Analytics_C::getItsSMSWTDInterface(void) {
+void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::connectDataProcessingAndAnalyticsSubsystem(DataProcessingAndAnalyticsSubsystem* part) {
+    setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(part);
+    
+}
+
+underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* DataProcessingAndAnalyticsSubsystem::port_Analytics_C::getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void) {
     return this;
 }
 
-SMSWTDInterface* DataProcessingAndAnalyticsSubsystem::port_Analytics_C::getOutBound(void) {
-    return this;
-}
-
-aircraftData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendAircraftData(void) {
-    aircraftData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendAircraftData();
+void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::setUnderwaterData(underwaterSensorData p_underwaterData) {
+    
+    if (itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface != NULL) {
+        itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface->setUnderwaterData(p_underwaterData);
     }
-    return res;
+    
 }
 
-satelliteData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendSatelliteData(void) {
-    satelliteData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendSatelliteData();
-    }
-    return res;
-}
-
-underwaterSensorData DataProcessingAndAnalyticsSubsystem::port_Analytics_C::sendUnderwaterData(void) {
-    underwaterSensorData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendUnderwaterData();
-    }
-    return res;
-}
-
-void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface) {
-    itsSMSWTDInterface = p_SMSWTDInterface;
+void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface) {
+    itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface = p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface;
 }
 
 void DataProcessingAndAnalyticsSubsystem::port_Analytics_C::cleanUpRelations(void) {
-    if(itsSMSWTDInterface != NULL)
+    if(itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface != NULL)
         {
-            itsSMSWTDInterface = NULL;
+            itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface = NULL;
         }
 }
 //#]
 
-DataProcessingAndAnalyticsSubsystem::DataProcessingAndAnalyticsSubsystem(IOxfActive* const theActiveContext) : OMReactive() {
+DataProcessingAndAnalyticsSubsystem::DataProcessingAndAnalyticsSubsystem(IOxfActive* const theActiveContext) : OMReactive(), underwaterSensorData_underwaterData_ProxyFlowPropertyInterface() {
     NOTIFY_REACTIVE_CONSTRUCTOR(DataProcessingAndAnalyticsSubsystem, DataProcessingAndAnalyticsSubsystem(), 0, SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_DataProcessingAndAnalyticsSubsystem_SERIALIZE);
     setActiveContext(theActiveContext, false);
+    initRelations();
     initStatechart();
 }
 
@@ -91,6 +79,27 @@ void DataProcessingAndAnalyticsSubsystem::processData(void) {
     NOTIFY_OPERATION(processData, processData(), 0, SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_processData_SERIALIZE);
     //#[ operation processData()
     std::cout << "Processing data.." << std::endl;
+    //#]
+}
+
+//#[ ignore
+void DataProcessingAndAnalyticsSubsystem::setUnderwaterData(underwaterSensorData p_underwaterData) {
+    if (memcmp(&underwaterData, &p_underwaterData, sizeof(underwaterSensorData))) {
+        underwaterData = p_underwaterData;
+        FLOW_DATA_RECEIVE("underwaterData", underwaterData, UNKNOWN2STRING);
+        GEN(chUnderwaterData);
+    }
+    
+}
+//#]
+
+void DataProcessingAndAnalyticsSubsystem::calculateGroundAcceleration(void) {
+    NOTIFY_OPERATION(calculateGroundAcceleration, calculateGroundAcceleration(), 0, SMSTWD_ARCH_DataProcessingAndAnalyticsSubsystem_calculateGroundAcceleration_SERIALIZE);
+    //#[ operation calculateGroundAcceleration()
+    std::cout << "H: " << this->underwaterData.horizontalAcceleration << std::endl;
+    std::cout << "V: " << this->underwaterData.verticalAcceleration << std::endl;
+    setGroundAcceleration(std::sqrt(this->underwaterData.horizontalAcceleration * this->underwaterData.horizontalAcceleration + this->underwaterData.verticalAcceleration * this->underwaterData.verticalAcceleration));
+    
     //#]
 }
 
@@ -108,6 +117,15 @@ int const DataProcessingAndAnalyticsSubsystem::getAtmosphericPressure(void) cons
 
 void DataProcessingAndAnalyticsSubsystem::setAtmosphericPressure(const int p_atmosphericPressure) {
     atmosphericPressure = p_atmosphericPressure;
+}
+
+int const DataProcessingAndAnalyticsSubsystem::getGroundAcceleration(void) const {
+    return groundAcceleration;
+}
+
+void DataProcessingAndAnalyticsSubsystem::setGroundAcceleration(const int p_groundAcceleration) {
+    groundAcceleration = p_groundAcceleration;
+    NOTIFY_SET_OPERATION;
 }
 
 int const DataProcessingAndAnalyticsSubsystem::getHorizontalAcceleration(void) const {
@@ -134,6 +152,10 @@ void DataProcessingAndAnalyticsSubsystem::setTemperature(const int p_temperature
     temperature = p_temperature;
 }
 
+underwaterSensorData const DataProcessingAndAnalyticsSubsystem::getUnderwaterData(void) const {
+    return underwaterData;
+}
+
 int const DataProcessingAndAnalyticsSubsystem::getVerticalAcceleration(void) const {
     return verticalAcceleration;
 }
@@ -154,6 +176,12 @@ bool DataProcessingAndAnalyticsSubsystem::startBehavior(void) {
     bool done = false;
     done = OMReactive::startBehavior();
     return done;
+}
+
+void DataProcessingAndAnalyticsSubsystem::initRelations(void) {
+    if (get_port_Analytics() != NULL) {
+        get_port_Analytics()->connectDataProcessingAndAnalyticsSubsystem(this);
+    }
 }
 
 void DataProcessingAndAnalyticsSubsystem::initStatechart(void) {
@@ -181,9 +209,13 @@ void DataProcessingAndAnalyticsSubsystem::rootState_entDef(void) {
     {
         NOTIFY_STATE_ENTERED("ROOT");
         NOTIFY_TRANSITION_STARTED("0");
-        NOTIFY_STATE_ENTERED("ROOT.Idle");
-        rootState_subState = Idle;
-        rootState_active = Idle;
+        NOTIFY_STATE_ENTERED("ROOT.Processing");
+        rootState_subState = Processing;
+        rootState_active = Processing;
+        //#[ state Processing.(Entry) 
+        std::cout << "Being in the on-entry" << std::endl;
+        calculateGroundAcceleration();
+        //#]
         NOTIFY_TRANSITION_TERMINATED("0");
     }
 }
@@ -204,6 +236,10 @@ IOxfReactive::TakeEventStatus DataProcessingAndAnalyticsSubsystem::rootState_pro
                     NOTIFY_STATE_ENTERED("ROOT.Processing");
                     rootState_subState = Processing;
                     rootState_active = Processing;
+                    //#[ state Processing.(Entry) 
+                    std::cout << "Being in the on-entry" << std::endl;
+                    calculateGroundAcceleration();
+                    //#]
                     NOTIFY_TRANSITION_TERMINATED("1");
                     res = eventConsumed;
                 }
@@ -213,13 +249,20 @@ IOxfReactive::TakeEventStatus DataProcessingAndAnalyticsSubsystem::rootState_pro
         // State Processing
         case Processing:
         {
-            if(IS_EVENT_TYPE_OF(processData_SMSTWD_ARCH_id) == 1)
+            if(IS_EVENT_TYPE_OF(chUnderwaterData_SMSTWD_ARCH_id) == 1)
                 {
                     NOTIFY_TRANSITION_STARTED("2");
                     NOTIFY_STATE_EXITED("ROOT.Processing");
+                    //#[ transition 2 
+                    calculateGroundAcceleration();
+                    //#]
                     NOTIFY_STATE_ENTERED("ROOT.Processing");
                     rootState_subState = Processing;
                     rootState_active = Processing;
+                    //#[ state Processing.(Entry) 
+                    std::cout << "Being in the on-entry" << std::endl;
+                    calculateGroundAcceleration();
+                    //#]
                     NOTIFY_TRANSITION_TERMINATED("2");
                     res = eventConsumed;
                 }
@@ -243,6 +286,11 @@ void OMAnimatedDataProcessingAndAnalyticsSubsystem::serializeAttributes(AOMSAttr
     aomsAttributes->addAttribute("temperature", x2String(myReal->temperature));
     aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
     aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
+    aomsAttributes->addAttribute("groundAcceleration", x2String(myReal->groundAcceleration));
+    aomsAttributes->addAttribute("underwaterData", UNKNOWN2STRING(myReal->underwaterData));
+}
+
+void OMAnimatedDataProcessingAndAnalyticsSubsystem::serializeRelations(AOMSRelations* aomsRelations) const {
 }
 
 void OMAnimatedDataProcessingAndAnalyticsSubsystem::rootState_serializeStates(AOMSState* aomsState) const {

@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.cpp
 *********************************************************************/
 
@@ -256,59 +256,42 @@ void SMSWTD::port_Aircraft_C::cleanUpRelations(void) {
         }
 }
 
-SMSWTD::port_Analytics_C::port_Analytics_C(void) : SMSWTDInterface(), _p_(0), itsSMSWTDInterface(NULL) {
+SMSWTD::port_Analytics_C::port_Analytics_C(void) : underwaterSensorData_underwaterData_ProxyFlowPropertyInterface(), _p_(0), itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(NULL) {
 }
 
 SMSWTD::port_Analytics_C::~port_Analytics_C(void) {
     cleanUpRelations();
 }
 
-void SMSWTD::port_Analytics_C::connectSMSWTD(SMSWTD* part) {
-    setItsSMSWTDInterface(part);
-    
-}
-
-SMSWTDInterface* SMSWTD::port_Analytics_C::getItsSMSWTDInterface(void) {
+underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* SMSWTD::port_Analytics_C::getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void) {
     return this;
 }
 
-aircraftData SMSWTD::port_Analytics_C::sendAircraftData(void) {
-    aircraftData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendAircraftData();
-    }
-    return res;
+underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* SMSWTD::port_Analytics_C::getOutBound(void) {
+    return this;
 }
 
-satelliteData SMSWTD::port_Analytics_C::sendSatelliteData(void) {
-    satelliteData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendSatelliteData();
+void SMSWTD::port_Analytics_C::setUnderwaterData(underwaterSensorData p_underwaterData) {
+    
+    if (itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface != NULL) {
+        itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface->setUnderwaterData(p_underwaterData);
     }
-    return res;
+    
 }
 
-underwaterSensorData SMSWTD::port_Analytics_C::sendUnderwaterData(void) {
-    underwaterSensorData res;
-    if (itsSMSWTDInterface != NULL) {
-        res = itsSMSWTDInterface->sendUnderwaterData();
-    }
-    return res;
-}
-
-void SMSWTD::port_Analytics_C::setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface) {
-    itsSMSWTDInterface = p_SMSWTDInterface;
+void SMSWTD::port_Analytics_C::setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface) {
+    itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface = p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface;
 }
 
 void SMSWTD::port_Analytics_C::cleanUpRelations(void) {
-    if(itsSMSWTDInterface != NULL)
+    if(itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface != NULL)
         {
-            itsSMSWTDInterface = NULL;
+            itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface = NULL;
         }
 }
 //#]
 
-SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), SMSWTDInterface(), itsAircraftSensorNetwork(NULL), itsAlertRecipients(NULL), itsSatelliteSystem(NULL), itsUnderwaterSeismicSensorNetwork(NULL) {
+SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), itsAircraftSensorNetwork(NULL), itsAlertRecipients(NULL), itsSatelliteSystem(NULL), itsUnderwaterSeismicSensorNetwork(NULL) {
     NOTIFY_REACTIVE_CONSTRUCTOR(SMSWTD, SMSWTD(), 0, SMSTWD_ARCH_SMSWTD_SMSWTD_SERIALIZE);
     setActiveContext(theActiveContext, false);
     {
@@ -319,12 +302,11 @@ SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), SMSWTDInterfa
             itsSecurityAndAccessControl.setShouldDelete(false);
         }
     }
-    initRelations();
     initStatechart();
 }
 
 SMSWTD::~SMSWTD(void) {
-    NOTIFY_DESTRUCTOR(~SMSWTD, false);
+    NOTIFY_DESTRUCTOR(~SMSWTD, true);
     cleanUpRelations();
     cancelTimeouts();
 }
@@ -365,10 +347,19 @@ underwaterSensorData SMSWTD::sendUnderwaterData(void) {
     //#]
 }
 
+//#[ ignore
+void SMSWTD::setUnderwaterData(underwaterSensorData p_underwaterData) {
+    if (memcmp(&underwaterData, &p_underwaterData, sizeof(underwaterSensorData)))  {
+        underwaterData = p_underwaterData;
+        FLOW_DATA_SEND(underwaterData, port_Analytics, setUnderwaterData, UNKNOWN2STRING);
+    }
+}
+//#]
+
 void SMSWTD::startSubsystems(void) {
     NOTIFY_OPERATION(startSubsystems, startSubsystems(), 0, SMSTWD_ARCH_SMSWTD_startSubsystems_SERIALIZE);
     //#[ operation startSubsystems()
-    itsDataProcessingAndAnalyticsSubsystem.GEN(startProcessing());
+    //OUT_PORT(port_Control)->GEN(startProcessing());
     //#]
 }
 
@@ -395,8 +386,17 @@ void SMSWTD::getUnderwaterData(void) {
     
     underwaterSensorData data = OUT_PORT(port_Ocean)->returnUnderwaterSensorsData();
     
-    this->horizontalAcceleration = data.horizontalAcceleration;
-    this->verticalAcceleration = data.verticalAcceleration;
+    setUnderwaterData(data);
+    
+    //this->horizontalAcceleration = data.horizontalAcceleration;
+    //this->verticalAcceleration = data.verticalAcceleration;
+    
+    
+    std::cout << "New H: " << this->underwaterData.horizontalAcceleration << std::endl;
+    std::cout << "New V: " << this->underwaterData.verticalAcceleration << std::endl;
+    
+    //this->underwaterData.horizontalAcceleration = this->horizontalAcceleration;
+    //this->underwaterData.verticalAcceleration = this->verticalAcceleration;
     //#]
 }
 
@@ -446,7 +446,6 @@ int const SMSWTD::getHorizontalAcceleration(void) const {
 
 void SMSWTD::setHorizontalAcceleration(const int p_horizontalAcceleration) {
     horizontalAcceleration = p_horizontalAcceleration;
-    NOTIFY_SET_OPERATION;
 }
 
 int const SMSWTD::getPrecipitationType(void) const {
@@ -465,21 +464,12 @@ void SMSWTD::setTemperature(const int p_temperature) {
     temperature = p_temperature;
 }
 
-underwaterSensorData const SMSWTD::getUndewaterData(void) const {
-    return undewaterData;
-}
-
-void SMSWTD::setUndewaterData(const underwaterSensorData p_undewaterData) {
-    undewaterData = p_undewaterData;
-}
-
 int const SMSWTD::getVerticalAcceleration(void) const {
     return verticalAcceleration;
 }
 
 void SMSWTD::setVerticalAcceleration(const int p_verticalAcceleration) {
     verticalAcceleration = p_verticalAcceleration;
-    NOTIFY_SET_OPERATION;
 }
 
 int const SMSWTD::getWindSpeed(void) const {
@@ -583,12 +573,6 @@ bool SMSWTD::startBehavior(void) {
             done = OMReactive::startBehavior();
         }
     return done;
-}
-
-void SMSWTD::initRelations(void) {
-    if (get_port_Analytics() != NULL) {
-        get_port_Analytics()->connectSMSWTD(this);
-    }
 }
 
 void SMSWTD::initStatechart(void) {
@@ -812,9 +796,10 @@ IOxfReactive::TakeEventStatus SMSWTD::rootState_processEvent(void) {
                     rootState_active = On;
                     //#[ state On.(Entry) 
                     getSensorsData();
-                    sendAircraftData();
-                    sendSatelliteData();
-                    sendUnderwaterData();
+                    //sendAircraftData();
+                    //sendSatelliteData();
+                    //sendUnderwaterData();
+                    //itsDataProcessingAndAnalyticsSubsystem.calculateGroundAcceleration();
                     //#]
                     rootState_timeout = scheduleTimeout(3000, "ROOT.On");
                     NOTIFY_TRANSITION_TERMINATED("1");
@@ -856,9 +841,10 @@ IOxfReactive::TakeEventStatus SMSWTD::rootState_processEvent(void) {
                     rootState_active = On;
                     //#[ state On.(Entry) 
                     getSensorsData();
-                    sendAircraftData();
-                    sendSatelliteData();
-                    sendUnderwaterData();
+                    //sendAircraftData();
+                    //sendSatelliteData();
+                    //sendUnderwaterData();
+                    //itsDataProcessingAndAnalyticsSubsystem.calculateGroundAcceleration();
                     //#]
                     rootState_timeout = scheduleTimeout(3000, "ROOT.On");
                     NOTIFY_TRANSITION_TERMINATED("3");
@@ -884,8 +870,7 @@ void OMAnimatedSMSWTD::serializeAttributes(AOMSAttributes* aomsAttributes) const
     aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
     aomsAttributes->addAttribute("temperature", x2String(myReal->temperature));
     aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
-    aomsAttributes->addAttribute("undewaterData", UNKNOWN2STRING(myReal->undewaterData));
-    OMAnimatedSMSWTDInterface::serializeAttributes(aomsAttributes);
+    aomsAttributes->addAttribute("underwaterData", UNKNOWN2STRING(myReal->underwaterData));
 }
 
 void OMAnimatedSMSWTD::serializeRelations(AOMSRelations* aomsRelations) const {
@@ -919,7 +904,6 @@ void OMAnimatedSMSWTD::serializeRelations(AOMSRelations* aomsRelations) const {
         {
             aomsRelations->ADD_ITEM(myReal->itsAlertRecipients);
         }
-    OMAnimatedSMSWTDInterface::serializeRelations(aomsRelations);
 }
 
 void OMAnimatedSMSWTD::rootState_serializeStates(AOMSState* aomsState) const {
@@ -958,11 +942,7 @@ void OMAnimatedSMSWTD::Off_serializeStates(AOMSState* aomsState) const {
 }
 //#]
 
-IMPLEMENT_REACTIVE_META_S_P(SMSWTD, SMSTWD_ARCH, false, SMSWTDInterface, OMAnimatedSMSWTDInterface, OMAnimatedSMSWTD)
-
-OMINIT_SUPERCLASS(SMSWTDInterface, OMAnimatedSMSWTDInterface)
-
-OMREGISTER_REACTIVE_CLASS
+IMPLEMENT_REACTIVE_META_P(SMSWTD, SMSTWD_ARCH, SMSTWD_ARCH, false, OMAnimatedSMSWTD)
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

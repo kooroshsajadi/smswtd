@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: DataProcessingAndAnalyticsSubsystem
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\DataProcessingAndAnalyticsSubsystem.h
 *********************************************************************/
 
@@ -25,17 +25,17 @@
 #include <state.h>
 //## auto_generated
 #include <event.h>
-//## class port_Analytics_C
-#include "SMSWTDInterface.h"
+//## class DataProcessingAndAnalyticsSubsystem
+#include "underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h"
 //## package SMSTWD_ARCH
 
 //## class DataProcessingAndAnalyticsSubsystem
-class DataProcessingAndAnalyticsSubsystem : public OMReactive {
+class DataProcessingAndAnalyticsSubsystem : public OMReactive, public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
 public :
 
 //#[ ignore
     //## package SMSTWD_ARCH
-    class port_Analytics_C : public SMSWTDInterface {
+    class port_Analytics_C : public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
         ////    Constructors and destructors    ////
         
     public :
@@ -49,24 +49,18 @@ public :
         ////    Operations    ////
         
         //## auto_generated
-        SMSWTDInterface* getItsSMSWTDInterface(void);
+        void connectDataProcessingAndAnalyticsSubsystem(DataProcessingAndAnalyticsSubsystem* part);
         
         //## auto_generated
-        SMSWTDInterface* getOutBound(void);
+        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void);
         
         //## auto_generated
-        virtual aircraftData sendAircraftData(void);
-        
-        //## auto_generated
-        virtual satelliteData sendSatelliteData(void);
-        
-        //## auto_generated
-        virtual underwaterSensorData sendUnderwaterData(void);
+        virtual void setUnderwaterData(underwaterSensorData p_underwaterData);
         
         ////    Additional operations    ////
         
         //## auto_generated
-        void setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface);
+        void setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface);
     
     protected :
     
@@ -81,7 +75,7 @@ public :
         
         ////    Relations and components    ////
         
-        SMSWTDInterface* itsSMSWTDInterface;		//## link itsSMSWTDInterface
+        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface
     };
 //#]
 
@@ -104,8 +98,19 @@ public :
     //## operation processData()
     virtual void processData(void);
     
-    ////    Additional operations    ////
+//#[ ignore
+    void setUnderwaterData(underwaterSensorData p_underwaterData);
+//#]
+
+private :
+
+    //## operation calculateGroundAcceleration()
+    virtual void calculateGroundAcceleration(void);
     
+    ////    Additional operations    ////
+
+public :
+
     //## auto_generated
     port_Analytics_C* getPort_Analytics(void) const;
     
@@ -117,6 +122,12 @@ public :
     
     //## auto_generated
     void setAtmosphericPressure(const int p_atmosphericPressure);
+    
+    //## auto_generated
+    int const getGroundAcceleration(void) const;
+    
+    //## auto_generated
+    void setGroundAcceleration(const int p_groundAcceleration);
     
     //## auto_generated
     int const getHorizontalAcceleration(void) const;
@@ -137,6 +148,9 @@ public :
     void setTemperature(const int p_temperature);
     
     //## auto_generated
+    underwaterSensorData const getUnderwaterData(void) const;
+    
+    //## auto_generated
     int const getVerticalAcceleration(void) const;
     
     //## auto_generated
@@ -153,6 +167,9 @@ public :
 
 protected :
 
+    //## auto_generated
+    void initRelations(void);
+    
     //## auto_generated
     void initStatechart(void);
 
@@ -174,6 +191,8 @@ private :
     
     int atmosphericPressure;		//## attribute atmosphericPressure
     
+    int groundAcceleration;		//## attribute groundAcceleration
+    
     int horizontalAcceleration;		//## attribute horizontalAcceleration
     
     char* modelVersion;		//## attribute modelVersion
@@ -181,6 +200,8 @@ private :
     int precipitationType;		//## attribute precipitationType
     
     int temperature;		//## attribute temperature
+    
+    underwaterSensorData underwaterData;		//## attribute underwaterData
     
     int verticalAcceleration;		//## attribute verticalAcceleration
     
@@ -247,6 +268,8 @@ class OMAnimatedDataProcessingAndAnalyticsSubsystem : virtual public AOMInstance
 public :
 
     virtual void serializeAttributes(AOMSAttributes* aomsAttributes) const;
+    
+    virtual void serializeRelations(AOMSRelations* aomsRelations) const;
     
     //## statechart_method
     void rootState_serializeStates(AOMSState* aomsState) const;

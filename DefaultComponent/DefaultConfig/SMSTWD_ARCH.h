@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.h
 *********************************************************************/
 
@@ -30,7 +30,7 @@ class AircraftSensorNetwork;
 class AlertRecipients;
 
 //## auto_generated
-class AnalysisInputInterfaces;
+class AnalyticsInterface;
 
 //## auto_generated
 class DataCollectionSubsystem;
@@ -43,9 +43,6 @@ class RiskAssessmentAndAlertingSubsystem;
 
 //## classInstance itsSMSWTD
 class SMSWTD;
-
-//## auto_generated
-class SMSWTDInterface;
 
 //## auto_generated
 class SatelliteDataInterface;
@@ -409,6 +406,34 @@ class OMAnimatedprocessData : virtual public AOMEvent {
 
 //#[ ignore
 extern const IOxfEvent::ID processData_SMSTWD_ARCH_id;
+//#]
+
+//## event chUnderwaterData()
+class chUnderwaterData : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedchUnderwaterData;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    chUnderwaterData(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedchUnderwaterData : virtual public AOMEvent {
+    DECLARE_META_EVENT(chUnderwaterData)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID chUnderwaterData_SMSTWD_ARCH_id;
 //#]
 
 #endif

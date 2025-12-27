@@ -29,41 +29,8 @@
 								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
 								<m_nLeft type="a">5</m_nLeft>
 								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
-							</CCommon_WINDOWPLACEMENT>
-						</_placement>
-						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
-						<_theDiagram type="r">
-							<IHandle type="e">
-								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
-								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
-								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
-								<_hclass type="a">AircraftSensorNetwork</_hclass>
-								<_hname type="a">AircraftStatechartDiagram</_hname>
-								<_hid type="a">GUID 820c0619-791b-44da-850c-72679326be91</_hid>
-							</IHandle>
-						</_theDiagram>
-						<_UpLeft type="a">0 0 </_UpLeft>
-						<_DownRight type="a">1207 609 </_DownRight>
-						<m_nDiagramIndex type="a">1</m_nDiagramIndex>
-						<m_bIsActiveView type="a">0</m_bIsActiveView>
-					</CGEMdiDiagramParams>
-					
-					<CGEMdiDiagramParams type="e">
-						<_placement type="p">
-							<CCommon_WINDOWPLACEMENT type="e">
-								<m_nLength type="a">44</m_nLength>
-								<m_nFlags type="a">0</m_nFlags>
-								<m_showCmd type="a">1</m_showCmd>
-								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
-								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
-								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
-								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
-								<m_nLeft type="a">5</m_nLeft>
-								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
 							</CCommon_WINDOWPLACEMENT>
 						</_placement>
 						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
@@ -76,106 +43,8 @@
 								<_hid type="a">GUID a7188e8e-d92a-491c-8f0a-2ac5869b3834</_hid>
 							</IHandle>
 						</_theDiagram>
-						<_UpLeft type="a">364 96 </_UpLeft>
-						<_DownRight type="a">2176 1010 </_DownRight>
-						<m_nDiagramIndex type="a">5</m_nDiagramIndex>
-						<m_bIsActiveView type="a">0</m_bIsActiveView>
-					</CGEMdiDiagramParams>
-					
-					<CGEMdiDiagramParams type="e">
-						<_placement type="p">
-							<CCommon_WINDOWPLACEMENT type="e">
-								<m_nLength type="a">44</m_nLength>
-								<m_nFlags type="a">0</m_nFlags>
-								<m_showCmd type="a">1</m_showCmd>
-								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
-								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
-								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
-								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
-								<m_nLeft type="a">5</m_nLeft>
-								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
-							</CCommon_WINDOWPLACEMENT>
-						</_placement>
-						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
-						<_theDiagram type="r">
-							<IHandle type="e">
-								<_hm2Class type="a">IDiagram</_hm2Class>
-								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
-								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
-								<_hname type="a">BDD_SMSWTD_SystemStructure</_hname>
-								<_hid type="a">GUID 764472bf-8192-47c3-afeb-bfd4db52a6cf</_hid>
-							</IHandle>
-						</_theDiagram>
-						<_UpLeft type="a">-72 559 </_UpLeft>
-						<_DownRight type="a">1805 1506 </_DownRight>
-						<m_nDiagramIndex type="a">6</m_nDiagramIndex>
-						<m_bIsActiveView type="a">0</m_bIsActiveView>
-					</CGEMdiDiagramParams>
-					
-					<CGEMdiDiagramParams type="e">
-						<_placement type="p">
-							<CCommon_WINDOWPLACEMENT type="e">
-								<m_nLength type="a">44</m_nLength>
-								<m_nFlags type="a">0</m_nFlags>
-								<m_showCmd type="a">1</m_showCmd>
-								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
-								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
-								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
-								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
-								<m_nLeft type="a">5</m_nLeft>
-								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
-							</CCommon_WINDOWPLACEMENT>
-						</_placement>
-						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
-						<_theDiagram type="r">
-							<IHandle type="e">
-								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
-								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
-								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
-								<_hclass type="a">DataProcessingAndAnalyticsSubsystem</_hclass>
-								<_hname type="a">StatechartDiagram</_hname>
-								<_hid type="a">GUID 42abd387-ea21-4c28-a652-be123ff0b531</_hid>
-							</IHandle>
-						</_theDiagram>
-						<_UpLeft type="a">0 0 </_UpLeft>
-						<_DownRight type="a">1631 823 </_DownRight>
-						<m_nDiagramIndex type="a">0</m_nDiagramIndex>
-						<m_bIsActiveView type="a">0</m_bIsActiveView>
-					</CGEMdiDiagramParams>
-					
-					<CGEMdiDiagramParams type="e">
-						<_placement type="p">
-							<CCommon_WINDOWPLACEMENT type="e">
-								<m_nLength type="a">44</m_nLength>
-								<m_nFlags type="a">0</m_nFlags>
-								<m_showCmd type="a">1</m_showCmd>
-								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
-								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
-								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
-								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
-								<m_nLeft type="a">5</m_nLeft>
-								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
-							</CCommon_WINDOWPLACEMENT>
-						</_placement>
-						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
-						<_theDiagram type="r">
-							<IHandle type="e">
-								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
-								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
-								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
-								<_hclass type="a">SMSWTD</_hclass>
-								<_hname type="a">StatechartDiagram</_hname>
-								<_hid type="a">GUID c1eee85b-877e-43f7-bca9-5925c8a86e97</_hid>
-							</IHandle>
-						</_theDiagram>
-						<_UpLeft type="a">0 0 </_UpLeft>
-						<_DownRight type="a">1631 823 </_DownRight>
+						<_UpLeft type="a">224 188 </_UpLeft>
+						<_DownRight type="a">1880 1130 </_DownRight>
 						<m_nDiagramIndex type="a">4</m_nDiagramIndex>
 						<m_bIsActiveView type="a">0</m_bIsActiveView>
 					</CGEMdiDiagramParams>
@@ -192,24 +61,23 @@
 								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
 								<m_nLeft type="a">5</m_nLeft>
 								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
 							</CCommon_WINDOWPLACEMENT>
 						</_placement>
 						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
 						<_theDiagram type="r">
 							<IHandle type="e">
-								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
+								<_hm2Class type="a">IDiagram</_hm2Class>
 								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
 								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
-								<_hclass type="a">UnderwaterSeismicSensorNetwork</_hclass>
-								<_hname type="a">StatechartDiagram</_hname>
-								<_hid type="a">GUID af291b4b-861b-44a9-a12f-8fd706d684be</_hid>
+								<_hname type="a">BDD_SMSWTD_SystemStructure</_hname>
+								<_hid type="a">GUID 764472bf-8192-47c3-afeb-bfd4db52a6cf</_hid>
 							</IHandle>
 						</_theDiagram>
-						<_UpLeft type="a">0 0 </_UpLeft>
-						<_DownRight type="a">1207 609 </_DownRight>
-						<m_nDiagramIndex type="a">3</m_nDiagramIndex>
+						<_UpLeft type="a">20 278 </_UpLeft>
+						<_DownRight type="a">1320 1017 </_DownRight>
+						<m_nDiagramIndex type="a">5</m_nDiagramIndex>
 						<m_bIsActiveView type="a">0</m_bIsActiveView>
 					</CGEMdiDiagramParams>
 					
@@ -221,12 +89,110 @@
 								<m_showCmd type="a">1</m_showCmd>
 								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
 								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
-								<m_ptMaxPositionX type="a">-11</m_ptMaxPositionX>
-								<m_ptMaxPositionY type="a">-45</m_ptMaxPositionY>
+								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
+								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
 								<m_nLeft type="a">5</m_nLeft>
 								<m_nTop type="a">35</m_nTop>
-								<m_nRight type="a">1666</m_nRight>
-								<m_nBottom type="a">925</m_nBottom>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
+							</CCommon_WINDOWPLACEMENT>
+						</_placement>
+						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
+						<_theDiagram type="r">
+							<IHandle type="e">
+								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
+								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
+								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
+								<_hclass type="a">DataProcessingAndAnalyticsSubsystem</_hclass>
+								<_hname type="a">StatechartDiagram</_hname>
+								<_hid type="a">GUID 42abd387-ea21-4c28-a652-be123ff0b531</_hid>
+							</IHandle>
+						</_theDiagram>
+						<_UpLeft type="a">0 0 </_UpLeft>
+						<_DownRight type="a">1574 895 </_DownRight>
+						<m_nDiagramIndex type="a">2</m_nDiagramIndex>
+						<m_bIsActiveView type="a">0</m_bIsActiveView>
+					</CGEMdiDiagramParams>
+					
+					<CGEMdiDiagramParams type="e">
+						<_placement type="p">
+							<CCommon_WINDOWPLACEMENT type="e">
+								<m_nLength type="a">44</m_nLength>
+								<m_nFlags type="a">0</m_nFlags>
+								<m_showCmd type="a">1</m_showCmd>
+								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
+								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
+								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
+								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
+								<m_nLeft type="a">5</m_nLeft>
+								<m_nTop type="a">35</m_nTop>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
+							</CCommon_WINDOWPLACEMENT>
+						</_placement>
+						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
+						<_theDiagram type="r">
+							<IHandle type="e">
+								<_hm2Class type="a">IStateChartDiagram</_hm2Class>
+								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
+								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
+								<_hclass type="a">SMSWTD</_hclass>
+								<_hname type="a">StatechartDiagram</_hname>
+								<_hid type="a">GUID c1eee85b-877e-43f7-bca9-5925c8a86e97</_hid>
+							</IHandle>
+						</_theDiagram>
+						<_UpLeft type="a">0 30 </_UpLeft>
+						<_DownRight type="a">1574 925 </_DownRight>
+						<m_nDiagramIndex type="a">1</m_nDiagramIndex>
+						<m_bIsActiveView type="a">0</m_bIsActiveView>
+					</CGEMdiDiagramParams>
+					
+					<CGEMdiDiagramParams type="e">
+						<_placement type="p">
+							<CCommon_WINDOWPLACEMENT type="e">
+								<m_nLength type="a">44</m_nLength>
+								<m_nFlags type="a">0</m_nFlags>
+								<m_showCmd type="a">1</m_showCmd>
+								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
+								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
+								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
+								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
+								<m_nLeft type="a">5</m_nLeft>
+								<m_nTop type="a">35</m_nTop>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
+							</CCommon_WINDOWPLACEMENT>
+						</_placement>
+						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
+						<_theDiagram type="r">
+							<IHandle type="e">
+								<_hm2Class type="a">IMSC</_hm2Class>
+								<_hfilename type="a">.\SMSWTD_rpy\SMSTWD_ARCH.sbsx</_hfilename>
+								<_hsubsystem type="a">SMSTWD_ARCH</_hsubsystem>
+								<_hname type="a">SeqDiagram_DataFlow</_hname>
+								<_hid type="a">GUID f01bf2b3-94aa-468a-9d49-68e0e929b8fc</_hid>
+							</IHandle>
+						</_theDiagram>
+						<_UpLeft type="a">0 0 </_UpLeft>
+						<_DownRight type="a">1574 875 </_DownRight>
+						<m_nDiagramIndex type="a">0</m_nDiagramIndex>
+						<m_bIsActiveView type="a">0</m_bIsActiveView>
+					</CGEMdiDiagramParams>
+					
+					<CGEMdiDiagramParams type="e">
+						<_placement type="p">
+							<CCommon_WINDOWPLACEMENT type="e">
+								<m_nLength type="a">44</m_nLength>
+								<m_nFlags type="a">0</m_nFlags>
+								<m_showCmd type="a">1</m_showCmd>
+								<m_ptMinPositionX type="a">-1</m_ptMinPositionX>
+								<m_ptMinPositionY type="a">-1</m_ptMinPositionY>
+								<m_ptMaxPositionX type="a">-1</m_ptMaxPositionX>
+								<m_ptMaxPositionY type="a">-1</m_ptMaxPositionY>
+								<m_nLeft type="a">5</m_nLeft>
+								<m_nTop type="a">35</m_nTop>
+								<m_nRight type="a">1609</m_nRight>
+								<m_nBottom type="a">997</m_nBottom>
 							</CCommon_WINDOWPLACEMENT>
 						</_placement>
 						<_wasOpenedOnCloseProject type="a">1</_wasOpenedOnCloseProject>
@@ -240,8 +206,8 @@
 							</IHandle>
 						</_theDiagram>
 						<_UpLeft type="a">0 0 </_UpLeft>
-						<_DownRight type="a">2172 1096 </_DownRight>
-						<m_nDiagramIndex type="a">2</m_nDiagramIndex>
+						<_DownRight type="a">1949 1108 </_DownRight>
+						<m_nDiagramIndex type="a">3</m_nDiagramIndex>
 						<m_bIsActiveView type="a">1</m_bIsActiveView>
 					</CGEMdiDiagramParams>
 					

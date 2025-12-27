@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.h
 *********************************************************************/
 
@@ -33,8 +33,6 @@
 #include "RiskAssessmentAndAlertingSubsystem.h"
 //## classInstance itsSecurityAndAccessControl
 #include "SecurityAndAccessControl.h"
-//## class SMSWTD
-#include "SMSWTDInterface.h"
 //## classInstance itsSystemInfrastructure
 #include "SystemInfrastructure.h"
 //## class port_Ocean_C
@@ -43,6 +41,8 @@
 #include "SatelliteDataInterface.h"
 //## class port_Aircraft_C
 #include "AircraftDataInterface.h"
+//## class port_Analytics_C
+#include "underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h"
 //## link itsAircraftSensorNetwork
 class AircraftSensorNetwork;
 
@@ -58,7 +58,7 @@ class UnderwaterSeismicSensorNetwork;
 //## package SMSTWD_ARCH
 
 //## class SMSWTD
-class SMSWTD : public OMReactive, public SMSWTDInterface {
+class SMSWTD : public OMReactive {
 public :
 
 //#[ ignore
@@ -213,7 +213,7 @@ public :
     };
     
     //## package SMSTWD_ARCH
-    class port_Analytics_C : public SMSWTDInterface {
+    class port_Analytics_C : public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
         ////    Constructors and destructors    ////
         
     public :
@@ -227,24 +227,18 @@ public :
         ////    Operations    ////
         
         //## auto_generated
-        void connectSMSWTD(SMSWTD* part);
+        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void);
         
         //## auto_generated
-        SMSWTDInterface* getItsSMSWTDInterface(void);
+        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getOutBound(void);
         
         //## auto_generated
-        virtual aircraftData sendAircraftData(void);
-        
-        //## auto_generated
-        virtual satelliteData sendSatelliteData(void);
-        
-        //## auto_generated
-        virtual underwaterSensorData sendUnderwaterData(void);
+        virtual void setUnderwaterData(underwaterSensorData p_underwaterData);
         
         ////    Additional operations    ////
         
         //## auto_generated
-        void setItsSMSWTDInterface(SMSWTDInterface* const p_SMSWTDInterface);
+        void setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface);
     
     protected :
     
@@ -259,7 +253,7 @@ public :
         
         ////    Relations and components    ////
         
-        SMSWTDInterface* itsSMSWTDInterface;		//## link itsSMSWTDInterface
+        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface
     };
 //#]
 
@@ -291,6 +285,10 @@ public :
     //## operation sendUnderwaterData()
     virtual underwaterSensorData sendUnderwaterData(void);
     
+//#[ ignore
+    void setUnderwaterData(underwaterSensorData p_underwaterData);
+//#]
+
     //## operation startSubsystems()
     virtual void startSubsystems(void);
 
@@ -355,12 +353,6 @@ public :
     void setTemperature(const int p_temperature);
     
     //## auto_generated
-    underwaterSensorData const getUndewaterData(void) const;
-    
-    //## auto_generated
-    void setUndewaterData(const underwaterSensorData p_undewaterData);
-    
-    //## auto_generated
     int const getVerticalAcceleration(void) const;
     
     //## auto_generated
@@ -420,9 +412,6 @@ public :
 protected :
 
     //## auto_generated
-    void initRelations(void);
-    
-    //## auto_generated
     void initStatechart(void);
     
     //## auto_generated
@@ -459,7 +448,7 @@ private :
     
     int temperature;		//## attribute temperature
     
-    underwaterSensorData undewaterData;		//## attribute undewaterData
+    underwaterSensorData underwaterData;		//## attribute underwaterData
     
     int verticalAcceleration;		//## attribute verticalAcceleration
     
@@ -589,7 +578,7 @@ private :
 
 #ifdef _OMINSTRUMENT
 //#[ ignore
-class OMAnimatedSMSWTD : public OMAnimatedSMSWTDInterface {
+class OMAnimatedSMSWTD : virtual public AOMInstance {
     DECLARE_REACTIVE_META(SMSWTD, OMAnimatedSMSWTD)
     
     ////    Framework operations    ////

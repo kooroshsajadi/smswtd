@@ -97,11 +97,11 @@ OBJS= \
   AlertRecipients.obj \
   Administrator.obj \
   SensorDataInterface.obj \
-  AnalysisInputInterfaces.obj \
   SatelliteDataInterface.obj \
   AircraftDataInterface.obj \
-  SMSWTDInterface.obj \
-  SMSTWD_ARCH.obj
+  AnalyticsInterface.obj \
+  SMSTWD_ARCH.obj \
+  ProxyPortInterfaces.obj
 
 
 
@@ -184,7 +184,7 @@ SOCK_LIB=
 
 
 
-SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h SMSWTDInterface.h 
+SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSWTD.obj" "SMSWTD.cpp" 
 
@@ -196,7 +196,7 @@ DataCollectionSubsystem.obj : DataCollectionSubsystem.cpp DataCollectionSubsyste
 
 
 
-DataProcessingAndAnalyticsSubsystem.obj : DataProcessingAndAnalyticsSubsystem.cpp DataProcessingAndAnalyticsSubsystem.h    SMSTWD_ARCH.h SMSWTDInterface.h 
+DataProcessingAndAnalyticsSubsystem.obj : DataProcessingAndAnalyticsSubsystem.cpp DataProcessingAndAnalyticsSubsystem.h    SMSTWD_ARCH.h underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"DataProcessingAndAnalyticsSubsystem.obj" "DataProcessingAndAnalyticsSubsystem.cpp" 
 
@@ -256,12 +256,6 @@ SensorDataInterface.obj : SensorDataInterface.cpp SensorDataInterface.h    SMSTW
 
 
 
-AnalysisInputInterfaces.obj : AnalysisInputInterfaces.cpp AnalysisInputInterfaces.h    SMSTWD_ARCH.h 
-	$(CREATE_OBJ_DIR)
-	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AnalysisInputInterfaces.obj" "AnalysisInputInterfaces.cpp" 
-
-
-
 SatelliteDataInterface.obj : SatelliteDataInterface.cpp SatelliteDataInterface.h    SMSTWD_ARCH.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SatelliteDataInterface.obj" "SatelliteDataInterface.cpp" 
@@ -274,15 +268,21 @@ AircraftDataInterface.obj : AircraftDataInterface.cpp AircraftDataInterface.h   
 
 
 
-SMSWTDInterface.obj : SMSWTDInterface.cpp SMSWTDInterface.h    SMSTWD_ARCH.h 
+AnalyticsInterface.obj : AnalyticsInterface.cpp AnalyticsInterface.h    SMSTWD_ARCH.h 
 	$(CREATE_OBJ_DIR)
-	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSWTDInterface.obj" "SMSWTDInterface.cpp" 
+	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"AnalyticsInterface.obj" "AnalyticsInterface.cpp" 
 
 
 
-SMSTWD_ARCH.obj : SMSTWD_ARCH.cpp SMSTWD_ARCH.h    SMSWTD.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SystemInfrastructure.h SecurityAndAccessControl.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h Administrator.h SensorDataInterface.h AnalysisInputInterfaces.h SatelliteDataInterface.h AircraftDataInterface.h SMSWTDInterface.h 
+SMSTWD_ARCH.obj : SMSTWD_ARCH.cpp SMSTWD_ARCH.h    SMSWTD.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SystemInfrastructure.h SecurityAndAccessControl.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h Administrator.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h AnalyticsInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSTWD_ARCH.obj" "SMSTWD_ARCH.cpp" 
+
+
+
+ProxyPortInterfaces.obj : ProxyPortInterfaces.cpp ProxyPortInterfaces.h    underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
+	$(CREATE_OBJ_DIR)
+	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"ProxyPortInterfaces.obj" "ProxyPortInterfaces.cpp" 
 
 
 
@@ -325,11 +325,11 @@ clean:
 	if exist AlertRecipients.obj erase AlertRecipients.obj
 	if exist Administrator.obj erase Administrator.obj
 	if exist SensorDataInterface.obj erase SensorDataInterface.obj
-	if exist AnalysisInputInterfaces.obj erase AnalysisInputInterfaces.obj
 	if exist SatelliteDataInterface.obj erase SatelliteDataInterface.obj
 	if exist AircraftDataInterface.obj erase AircraftDataInterface.obj
-	if exist SMSWTDInterface.obj erase SMSWTDInterface.obj
+	if exist AnalyticsInterface.obj erase AnalyticsInterface.obj
 	if exist SMSTWD_ARCH.obj erase SMSTWD_ARCH.obj
+	if exist ProxyPortInterfaces.obj erase ProxyPortInterfaces.obj
 	if exist $(TARGET_MAIN)$(OBJ_EXT) erase $(TARGET_MAIN)$(OBJ_EXT)
 	if exist *$(OBJ_EXT) erase *$(OBJ_EXT)
 	if exist $(TARGET_NAME).pdb erase $(TARGET_NAME).pdb

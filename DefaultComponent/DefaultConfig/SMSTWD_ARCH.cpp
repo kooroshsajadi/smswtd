@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Thu, 25, Dec 2025  
+//!	Generated Date	: Sat, 27, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
 *********************************************************************/
 
@@ -31,7 +31,7 @@
 //## auto_generated
 #include "AlertRecipients.h"
 //## auto_generated
-#include "AnalysisInputInterfaces.h"
+#include "AnalyticsInterface.h"
 //## auto_generated
 #include "DataCollectionSubsystem.h"
 //## auto_generated
@@ -42,8 +42,6 @@
 #include "SecurityAndAccessControl.h"
 //## auto_generated
 #include "SensorDataInterface.h"
-//## auto_generated
-#include "SMSWTDInterface.h"
 //## auto_generated
 #include "SystemInfrastructure.h"
 //#[ ignore
@@ -106,6 +104,12 @@
 #define processData_UNSERIALIZE OM_NO_OP
 
 #define processData_CONSTRUCTOR processData()
+
+#define chUnderwaterData_SERIALIZE OM_NO_OP
+
+#define chUnderwaterData_UNSERIALIZE OM_NO_OP
+
+#define chUnderwaterData_CONSTRUCTOR chUnderwaterData()
 //#]
 
 //## package SMSTWD_ARCH
@@ -181,7 +185,7 @@ void SMSTWD_ARCH_initRelations(void) {
     }
     {
         
-        itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->setItsSMSWTDInterface(itsSMSWTD.get_port_Analytics()->getItsSMSWTDInterface());
+        itsSMSWTD.get_port_Analytics()->setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface());
         
     }
     
@@ -367,6 +371,18 @@ const IOxfEvent::ID processData_SMSTWD_ARCH_id(18610);
 //#]
 
 IMPLEMENT_META_EVENT_P(processData, SMSTWD_ARCH, SMSTWD_ARCH, processData())
+
+//## event chUnderwaterData()
+chUnderwaterData::chUnderwaterData(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(chUnderwaterData)
+    setId(chUnderwaterData_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID chUnderwaterData_SMSTWD_ARCH_id(18611);
+//#]
+
+IMPLEMENT_META_EVENT_P(chUnderwaterData, SMSTWD_ARCH, SMSTWD_ARCH, chUnderwaterData())
 
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
