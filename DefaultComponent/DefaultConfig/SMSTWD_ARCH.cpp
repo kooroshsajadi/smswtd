@@ -110,6 +110,18 @@
 #define chUnderwaterData_UNSERIALIZE OM_NO_OP
 
 #define chUnderwaterData_CONSTRUCTOR chUnderwaterData()
+
+#define chUnderwaterDataFlow_SERIALIZE OM_NO_OP
+
+#define chUnderwaterDataFlow_UNSERIALIZE OM_NO_OP
+
+#define chUnderwaterDataFlow_CONSTRUCTOR chUnderwaterDataFlow()
+
+#define chAircraftsDataFlow_SERIALIZE OM_NO_OP
+
+#define chAircraftsDataFlow_UNSERIALIZE OM_NO_OP
+
+#define chAircraftsDataFlow_CONSTRUCTOR chAircraftsDataFlow()
 //#]
 
 //## package SMSTWD_ARCH
@@ -185,7 +197,9 @@ void SMSTWD_ARCH_initRelations(void) {
     }
     {
         
-        itsSMSWTD.get_port_Analytics()->setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface());
+        itsSMSWTD.get_port_Analytics()->setItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->getItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface());
+        
+        itsSMSWTD.get_port_Analytics()->setItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem_1.get_port_Analytics()->getItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface());
         
     }
     
@@ -383,6 +397,30 @@ const IOxfEvent::ID chUnderwaterData_SMSTWD_ARCH_id(18611);
 //#]
 
 IMPLEMENT_META_EVENT_P(chUnderwaterData, SMSTWD_ARCH, SMSTWD_ARCH, chUnderwaterData())
+
+//## event chUnderwaterDataFlow()
+chUnderwaterDataFlow::chUnderwaterDataFlow(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(chUnderwaterDataFlow)
+    setId(chUnderwaterDataFlow_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID chUnderwaterDataFlow_SMSTWD_ARCH_id(18612);
+//#]
+
+IMPLEMENT_META_EVENT_P(chUnderwaterDataFlow, SMSTWD_ARCH, SMSTWD_ARCH, chUnderwaterDataFlow())
+
+//## event chAircraftsDataFlow()
+chAircraftsDataFlow::chAircraftsDataFlow(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(chAircraftsDataFlow)
+    setId(chAircraftsDataFlow_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID chAircraftsDataFlow_SMSTWD_ARCH_id(18613);
+//#]
+
+IMPLEMENT_META_EVENT_P(chAircraftsDataFlow, SMSTWD_ARCH, SMSTWD_ARCH, chAircraftsDataFlow())
 
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp

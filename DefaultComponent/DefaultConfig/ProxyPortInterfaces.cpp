@@ -15,7 +15,9 @@
 //## auto_generated
 #include "ProxyPortInterfaces.h"
 //## auto_generated
-#include "underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h"
+#include "aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface.h"
+//## auto_generated
+#include "underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface.h"
 //## package ProxyPortInterfaces
 
 

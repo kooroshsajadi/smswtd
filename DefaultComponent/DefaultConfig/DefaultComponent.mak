@@ -100,8 +100,7 @@ OBJS= \
   SatelliteDataInterface.obj \
   AircraftDataInterface.obj \
   AnalyticsInterface.obj \
-  SMSTWD_ARCH.obj \
-  ProxyPortInterfaces.obj
+  SMSTWD_ARCH.obj
 
 
 
@@ -184,7 +183,7 @@ SOCK_LIB=
 
 
 
-SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
+SMSWTD.obj : SMSWTD.cpp SMSWTD.h    SMSTWD_ARCH.h DataCollectionSubsystem.h DataProcessingAndAnalyticsSubsystem.h RiskAssessmentAndAlertingSubsystem.h SecurityAndAccessControl.h SystemInfrastructure.h SatelliteSystem.h AircraftSensorNetwork.h UnderwaterSeismicSensorNetwork.h AlertRecipients.h SensorDataInterface.h SatelliteDataInterface.h AircraftDataInterface.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"SMSWTD.obj" "SMSWTD.cpp" 
 
@@ -196,7 +195,7 @@ DataCollectionSubsystem.obj : DataCollectionSubsystem.cpp DataCollectionSubsyste
 
 
 
-DataProcessingAndAnalyticsSubsystem.obj : DataProcessingAndAnalyticsSubsystem.cpp DataProcessingAndAnalyticsSubsystem.h    SMSTWD_ARCH.h underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
+DataProcessingAndAnalyticsSubsystem.obj : DataProcessingAndAnalyticsSubsystem.cpp DataProcessingAndAnalyticsSubsystem.h    SMSTWD_ARCH.h 
 	$(CREATE_OBJ_DIR)
 	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"DataProcessingAndAnalyticsSubsystem.obj" "DataProcessingAndAnalyticsSubsystem.cpp" 
 
@@ -280,12 +279,6 @@ SMSTWD_ARCH.obj : SMSTWD_ARCH.cpp SMSTWD_ARCH.h    SMSWTD.h DataCollectionSubsys
 
 
 
-ProxyPortInterfaces.obj : ProxyPortInterfaces.cpp ProxyPortInterfaces.h    underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h 
-	$(CREATE_OBJ_DIR)
-	$(CPP) $(ConfigurationCPPCompileSwitches)  /Fo"ProxyPortInterfaces.obj" "ProxyPortInterfaces.cpp" 
-
-
-
 
 
 
@@ -329,7 +322,6 @@ clean:
 	if exist AircraftDataInterface.obj erase AircraftDataInterface.obj
 	if exist AnalyticsInterface.obj erase AnalyticsInterface.obj
 	if exist SMSTWD_ARCH.obj erase SMSTWD_ARCH.obj
-	if exist ProxyPortInterfaces.obj erase ProxyPortInterfaces.obj
 	if exist $(TARGET_MAIN)$(OBJ_EXT) erase $(TARGET_MAIN)$(OBJ_EXT)
 	if exist *$(OBJ_EXT) erase *$(OBJ_EXT)
 	if exist $(TARGET_NAME).pdb erase $(TARGET_NAME).pdb

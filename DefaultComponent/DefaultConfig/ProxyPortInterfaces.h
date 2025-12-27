@@ -16,7 +16,10 @@
 //## auto_generated
 #include <aom.h>
 //## auto_generated
-class underwaterSensorData_underwaterData_ProxyFlowPropertyInterface;
+class aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface;
+
+//## auto_generated
+class underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface;
 
 //## package ProxyPortInterfaces
 

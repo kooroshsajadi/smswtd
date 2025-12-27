@@ -137,7 +137,7 @@
 				<IRPYRawContainer type="e">
 					<IMultiplicityItem type="e">
 						<_name type="a">1</_name>
-						<_count type="a">13</_count>
+						<_count type="a">14</_count>
 					</IMultiplicityItem>
 					
 					<IMultiplicityItem type="e">
@@ -162,10 +162,6 @@
 				<IRPYRawContainer type="e">
 				</IRPYRawContainer>
 			</Diagrams>
-			<MSCS type="c">
-				<IRPYRawContainer type="e">
-				</IRPYRawContainer>
-			</MSCS>
 			<mapOslcAddedCollections type="c">
 				<IRPYRawContainer type="e">
 				</IRPYRawContainer>

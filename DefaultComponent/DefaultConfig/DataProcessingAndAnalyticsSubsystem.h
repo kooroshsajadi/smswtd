@@ -26,16 +26,18 @@
 //## auto_generated
 #include <event.h>
 //## class DataProcessingAndAnalyticsSubsystem
-#include "underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h"
+#include "aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface.h"
+//## class DataProcessingAndAnalyticsSubsystem
+#include "underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface.h"
 //## package SMSTWD_ARCH
 
 //## class DataProcessingAndAnalyticsSubsystem
-class DataProcessingAndAnalyticsSubsystem : public OMReactive, public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
+class DataProcessingAndAnalyticsSubsystem : public OMReactive, public underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface, public aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface {
 public :
 
 //#[ ignore
     //## package SMSTWD_ARCH
-    class port_Analytics_C : public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
+    class port_Analytics_C : public underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface, public aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface {
         ////    Constructors and destructors    ////
         
     public :
@@ -52,15 +54,24 @@ public :
         void connectDataProcessingAndAnalyticsSubsystem(DataProcessingAndAnalyticsSubsystem* part);
         
         //## auto_generated
-        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void);
+        aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* getItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(void);
         
         //## auto_generated
-        virtual void setUnderwaterData(underwaterSensorData p_underwaterData);
+        underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(void);
+        
+        //## auto_generated
+        virtual void setAircraftsDataFlow(aircraftData p_aircraftsDataFlow);
+        
+        //## auto_generated
+        virtual void setUnderwaterDataFlow(underwaterSensorData p_underwaterDataFlow);
         
         ////    Additional operations    ////
         
         //## auto_generated
-        void setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface);
+        void setItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* const p_aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface);
+        
+        //## auto_generated
+        void setItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface);
     
     protected :
     
@@ -75,7 +86,9 @@ public :
         
         ////    Relations and components    ////
         
-        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface
+        aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* itsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface;		//## link itsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface
+        
+        underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface
     };
 //#]
 
@@ -99,13 +112,18 @@ public :
     virtual void processData(void);
     
 //#[ ignore
-    void setUnderwaterData(underwaterSensorData p_underwaterData);
+    void setAircraftsDataFlow(aircraftData p_aircraftsDataFlow);
+    
+    void setUnderwaterDataFlow(underwaterSensorData p_underwaterDataFlow);
 //#]
 
 private :
 
     //## operation calculateGroundAcceleration()
     virtual void calculateGroundAcceleration(void);
+    
+    //## operation calculateWeatherSeverityScore()
+    virtual void calculateWeatherSeverityScore(void);
     
     ////    Additional operations    ////
 
@@ -118,49 +136,16 @@ public :
     port_Analytics_C* get_port_Analytics(void) const;
     
     //## auto_generated
-    int const getAtmosphericPressure(void) const;
-    
-    //## auto_generated
-    void setAtmosphericPressure(const int p_atmosphericPressure);
-    
-    //## auto_generated
-    int const getGroundAcceleration(void) const;
+    aircraftData const getAircraftsDataFlow(void) const;
     
     //## auto_generated
     void setGroundAcceleration(const int p_groundAcceleration);
     
     //## auto_generated
-    int const getHorizontalAcceleration(void) const;
+    underwaterSensorData const getUnderwaterDataFlow(void) const;
     
     //## auto_generated
-    void setHorizontalAcceleration(const int p_horizontalAcceleration);
-    
-    //## auto_generated
-    int const getPrecipitationType(void) const;
-    
-    //## auto_generated
-    void setPrecipitationType(const int p_precipitationType);
-    
-    //## auto_generated
-    int const getTemperature(void) const;
-    
-    //## auto_generated
-    void setTemperature(const int p_temperature);
-    
-    //## auto_generated
-    underwaterSensorData const getUnderwaterData(void) const;
-    
-    //## auto_generated
-    int const getVerticalAcceleration(void) const;
-    
-    //## auto_generated
-    void setVerticalAcceleration(const int p_verticalAcceleration);
-    
-    //## auto_generated
-    int const getWindSpeed(void) const;
-    
-    //## auto_generated
-    void setWindSpeed(const int p_windSpeed);
+    void setWeatherSeverityScore(const int p_weatherSeverityScore);
     
     //## auto_generated
     virtual bool startBehavior(void);
@@ -176,38 +161,20 @@ protected :
 private :
 
     //## auto_generated
-    char* const getModelVersion(void) const;
+    int const getGroundAcceleration(void) const;
     
     //## auto_generated
-    void setModelVersion(char* const p_modelVersion);
-    
-    //## auto_generated
-    int const getWindowSize(void) const;
-    
-    //## auto_generated
-    void setWindowSize(const int p_windowSize);
+    int const getWeatherSeverityScore(void) const;
     
     ////    Attributes    ////
     
-    int atmosphericPressure;		//## attribute atmosphericPressure
+    aircraftData aircraftsDataFlow;		//## attribute aircraftsDataFlow
     
     int groundAcceleration;		//## attribute groundAcceleration
     
-    int horizontalAcceleration;		//## attribute horizontalAcceleration
+    underwaterSensorData underwaterDataFlow;		//## attribute underwaterDataFlow
     
-    char* modelVersion;		//## attribute modelVersion
-    
-    int precipitationType;		//## attribute precipitationType
-    
-    int temperature;		//## attribute temperature
-    
-    underwaterSensorData underwaterData;		//## attribute underwaterData
-    
-    int verticalAcceleration;		//## attribute verticalAcceleration
-    
-    int windSpeed;		//## attribute windSpeed
-    
-    int windowSize;		//## attribute windowSize
+    int weatherSeverityScore;		//## attribute weatherSeverityScore
     
     ////    Relations and components    ////
     

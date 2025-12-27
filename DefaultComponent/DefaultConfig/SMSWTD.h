@@ -42,7 +42,9 @@
 //## class port_Aircraft_C
 #include "AircraftDataInterface.h"
 //## class port_Analytics_C
-#include "underwaterSensorData_underwaterData_ProxyFlowPropertyInterface.h"
+#include "aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface.h"
+//## class port_Analytics_C
+#include "underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface.h"
 //## link itsAircraftSensorNetwork
 class AircraftSensorNetwork;
 
@@ -213,7 +215,7 @@ public :
     };
     
     //## package SMSTWD_ARCH
-    class port_Analytics_C : public underwaterSensorData_underwaterData_ProxyFlowPropertyInterface {
+    class port_Analytics_C : public underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface, public aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface {
         ////    Constructors and destructors    ////
         
     public :
@@ -227,18 +229,27 @@ public :
         ////    Operations    ////
         
         //## auto_generated
-        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(void);
+        aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* getItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(void);
         
         //## auto_generated
-        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* getOutBound(void);
+        underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* getItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(void);
         
         //## auto_generated
-        virtual void setUnderwaterData(underwaterSensorData p_underwaterData);
+        SMSWTD::port_Analytics_C* getOutBound(void);
+        
+        //## auto_generated
+        virtual void setAircraftsDataFlow(aircraftData p_aircraftsDataFlow);
+        
+        //## auto_generated
+        virtual void setUnderwaterDataFlow(underwaterSensorData p_underwaterDataFlow);
         
         ////    Additional operations    ////
         
         //## auto_generated
-        void setItsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface(underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterData_ProxyFlowPropertyInterface);
+        void setItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* const p_aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface);
+        
+        //## auto_generated
+        void setItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* const p_underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface);
     
     protected :
     
@@ -253,7 +264,9 @@ public :
         
         ////    Relations and components    ////
         
-        underwaterSensorData_underwaterData_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterData_ProxyFlowPropertyInterface
+        aircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface* itsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface;		//## link itsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface
+        
+        underwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface* itsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface;		//## link itsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface
     };
 //#]
 
@@ -276,17 +289,10 @@ public :
     //## operation getSensorsData()
     virtual void getSensorsData(void);
     
-    //## operation sendAircraftData()
-    virtual aircraftData sendAircraftData(void);
-    
-    //## operation sendSatelliteData()
-    virtual satelliteData sendSatelliteData(void);
-    
-    //## operation sendUnderwaterData()
-    virtual underwaterSensorData sendUnderwaterData(void);
-    
 //#[ ignore
-    void setUnderwaterData(underwaterSensorData p_underwaterData);
+    void setAircraftsDataFlow(aircraftData p_aircraftsDataFlow);
+    
+    void setUnderwaterDataFlow(underwaterSensorData p_underwaterDataFlow);
 //#]
 
     //## operation startSubsystems()
@@ -329,6 +335,9 @@ public :
     port_Analytics_C* get_port_Analytics(void) const;
     
     //## auto_generated
+    aircraftData const getAircraftsDataFlow(void) const;
+    
+    //## auto_generated
     int const getAtmosphericPressure(void) const;
     
     //## auto_generated
@@ -351,6 +360,9 @@ public :
     
     //## auto_generated
     void setTemperature(const int p_temperature);
+    
+    //## auto_generated
+    underwaterSensorData const getUnderwaterDataFlow(void) const;
     
     //## auto_generated
     int const getVerticalAcceleration(void) const;
@@ -423,6 +435,12 @@ protected :
 private :
 
     //## auto_generated
+    aircraftData const getAircraftsData(void) const;
+    
+    //## auto_generated
+    void setAircraftsData(const aircraftData p_AircraftsData);
+    
+    //## auto_generated
     bool const getIsRunning(void) const;
     
     //## auto_generated
@@ -434,7 +452,14 @@ private :
     //## auto_generated
     void setSystemId(char* const p_systemId);
     
+    //## auto_generated
+    void setUnderwaterData(const underwaterSensorData p_underwaterData);
+    
     ////    Attributes    ////
+    
+    aircraftData AircraftsData;		//## attribute AircraftsData
+    
+    aircraftData aircraftsDataFlow;		//## attribute aircraftsDataFlow
     
     int atmosphericPressure;		//## attribute atmosphericPressure
     
@@ -449,6 +474,8 @@ private :
     int temperature;		//## attribute temperature
     
     underwaterSensorData underwaterData;		//## attribute underwaterData
+    
+    underwaterSensorData underwaterDataFlow;		//## attribute underwaterDataFlow
     
     int verticalAcceleration;		//## attribute verticalAcceleration
     

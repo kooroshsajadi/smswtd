@@ -436,6 +436,62 @@ class OMAnimatedchUnderwaterData : virtual public AOMEvent {
 extern const IOxfEvent::ID chUnderwaterData_SMSTWD_ARCH_id;
 //#]
 
+//## event chUnderwaterDataFlow()
+class chUnderwaterDataFlow : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedchUnderwaterDataFlow;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    chUnderwaterDataFlow(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedchUnderwaterDataFlow : virtual public AOMEvent {
+    DECLARE_META_EVENT(chUnderwaterDataFlow)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID chUnderwaterDataFlow_SMSTWD_ARCH_id;
+//#]
+
+//## event chAircraftsDataFlow()
+class chAircraftsDataFlow : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedchAircraftsDataFlow;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    chAircraftsDataFlow(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedchAircraftsDataFlow : virtual public AOMEvent {
+    DECLARE_META_EVENT(chAircraftsDataFlow)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID chAircraftsDataFlow_SMSTWD_ARCH_id;
+//#]
+
 #endif
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.h
