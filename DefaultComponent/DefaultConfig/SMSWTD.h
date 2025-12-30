@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Sat, 27, Dec 2025  
+//!	Generated Date	: Sun, 28, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.h
 *********************************************************************/
 
@@ -338,43 +338,7 @@ public :
     aircraftData const getAircraftsDataFlow(void) const;
     
     //## auto_generated
-    int const getAtmosphericPressure(void) const;
-    
-    //## auto_generated
-    void setAtmosphericPressure(const int p_atmosphericPressure);
-    
-    //## auto_generated
-    int const getHorizontalAcceleration(void) const;
-    
-    //## auto_generated
-    void setHorizontalAcceleration(const int p_horizontalAcceleration);
-    
-    //## auto_generated
-    int const getPrecipitationType(void) const;
-    
-    //## auto_generated
-    void setPrecipitationType(const int p_precipitationType);
-    
-    //## auto_generated
-    int const getTemperature(void) const;
-    
-    //## auto_generated
-    void setTemperature(const int p_temperature);
-    
-    //## auto_generated
     underwaterSensorData const getUnderwaterDataFlow(void) const;
-    
-    //## auto_generated
-    int const getVerticalAcceleration(void) const;
-    
-    //## auto_generated
-    void setVerticalAcceleration(const int p_verticalAcceleration);
-    
-    //## auto_generated
-    int const getWindSpeed(void) const;
-    
-    //## auto_generated
-    void setWindSpeed(const int p_windSpeed);
     
     //## auto_generated
     const AircraftSensorNetwork* getItsAircraftSensorNetwork(void) const;
@@ -424,6 +388,9 @@ public :
 protected :
 
     //## auto_generated
+    void initRelations(void);
+    
+    //## auto_generated
     void initStatechart(void);
     
     //## auto_generated
@@ -431,55 +398,14 @@ protected :
     
     //## auto_generated
     void cancelTimeouts(void);
+    
+    ////    Attributes    ////
 
 private :
 
-    //## auto_generated
-    aircraftData const getAircraftsData(void) const;
-    
-    //## auto_generated
-    void setAircraftsData(const aircraftData p_AircraftsData);
-    
-    //## auto_generated
-    bool const getIsRunning(void) const;
-    
-    //## auto_generated
-    void setIsRunning(const bool p_isRunning);
-    
-    //## auto_generated
-    char* const getSystemId(void) const;
-    
-    //## auto_generated
-    void setSystemId(char* const p_systemId);
-    
-    //## auto_generated
-    void setUnderwaterData(const underwaterSensorData p_underwaterData);
-    
-    ////    Attributes    ////
-    
-    aircraftData AircraftsData;		//## attribute AircraftsData
-    
     aircraftData aircraftsDataFlow;		//## attribute aircraftsDataFlow
     
-    int atmosphericPressure;		//## attribute atmosphericPressure
-    
-    int horizontalAcceleration;		//## attribute horizontalAcceleration
-    
-    bool isRunning;		//## attribute isRunning
-    
-    int precipitationType;		//## attribute precipitationType
-    
-    char* systemId;		//## attribute systemId
-    
-    int temperature;		//## attribute temperature
-    
-    underwaterSensorData underwaterData;		//## attribute underwaterData
-    
     underwaterSensorData underwaterDataFlow;		//## attribute underwaterDataFlow
-    
-    int verticalAcceleration;		//## attribute verticalAcceleration
-    
-    int windSpeed;		//## attribute windSpeed
     
     ////    Relations and components    ////
     

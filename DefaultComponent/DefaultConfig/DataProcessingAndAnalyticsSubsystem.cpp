@@ -198,86 +198,46 @@ void DataProcessingAndAnalyticsSubsystem::rootState_entDef(void) {
         NOTIFY_STATE_ENTERED("ROOT.Processing");
         rootState_subState = Processing;
         rootState_active = Processing;
-        //#[ state Processing.(Entry) 
-        std::cout << "Being in the on-entry" << std::endl;
-        calculateGroundAcceleration();
-        //#]
         NOTIFY_TRANSITION_TERMINATED("0");
     }
 }
 
 IOxfReactive::TakeEventStatus DataProcessingAndAnalyticsSubsystem::rootState_processEvent(void) {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    switch (rootState_active) {
-        // State Idle
-        case Idle:
-        {
-            if(IS_EVENT_TYPE_OF(startProcessing_SMSTWD_ARCH_id) == 1)
-                {
-                    NOTIFY_TRANSITION_STARTED("1");
-                    NOTIFY_STATE_EXITED("ROOT.Idle");
-                    //#[ transition 1 
-                    std::cout << "Data analytics is on!" << std::endl;
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.Processing");
-                    rootState_subState = Processing;
-                    rootState_active = Processing;
-                    //#[ state Processing.(Entry) 
-                    std::cout << "Being in the on-entry" << std::endl;
-                    calculateGroundAcceleration();
-                    //#]
-                    NOTIFY_TRANSITION_TERMINATED("1");
-                    res = eventConsumed;
-                }
-            
-        }
-        break;
-        // State Processing
-        case Processing:
+    // State Processing
+    if(rootState_active == Processing)
         {
             if(IS_EVENT_TYPE_OF(chUnderwaterDataFlow_SMSTWD_ARCH_id) == 1)
                 {
-                    NOTIFY_TRANSITION_STARTED("2");
+                    NOTIFY_TRANSITION_STARTED("1");
                     NOTIFY_STATE_EXITED("ROOT.Processing");
-                    //#[ transition 2 
+                    //#[ transition 1 
                     calculateGroundAcceleration();
                     //#]
                     NOTIFY_STATE_ENTERED("ROOT.Processing");
                     rootState_subState = Processing;
                     rootState_active = Processing;
-                    //#[ state Processing.(Entry) 
-                    std::cout << "Being in the on-entry" << std::endl;
-                    calculateGroundAcceleration();
-                    //#]
-                    NOTIFY_TRANSITION_TERMINATED("2");
+                    NOTIFY_TRANSITION_TERMINATED("1");
                     res = eventConsumed;
                 }
             else {
                 if(IS_EVENT_TYPE_OF(chAircraftsDataFlow_SMSTWD_ARCH_id) == 1)
                     {
-                        NOTIFY_TRANSITION_STARTED("3");
+                        NOTIFY_TRANSITION_STARTED("2");
                         NOTIFY_STATE_EXITED("ROOT.Processing");
-                        //#[ transition 3 
+                        //#[ transition 2 
                         calculateWeatherSeverityScore();
                         //#]
                         NOTIFY_STATE_ENTERED("ROOT.Processing");
                         rootState_subState = Processing;
                         rootState_active = Processing;
-                        //#[ state Processing.(Entry) 
-                        std::cout << "Being in the on-entry" << std::endl;
-                        calculateGroundAcceleration();
-                        //#]
-                        NOTIFY_TRANSITION_TERMINATED("3");
+                        NOTIFY_TRANSITION_TERMINATED("2");
                         res = eventConsumed;
                     }
                 }
                 
             
         }
-        break;
-        default:
-            break;
-    }
     return res;
 }
 
@@ -295,28 +255,14 @@ void OMAnimatedDataProcessingAndAnalyticsSubsystem::serializeRelations(AOMSRelat
 
 void OMAnimatedDataProcessingAndAnalyticsSubsystem::rootState_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT");
-    switch (myReal->rootState_subState) {
-        case DataProcessingAndAnalyticsSubsystem::Idle:
-        {
-            Idle_serializeStates(aomsState);
-        }
-        break;
-        case DataProcessingAndAnalyticsSubsystem::Processing:
+    if(myReal->rootState_subState == DataProcessingAndAnalyticsSubsystem::Processing)
         {
             Processing_serializeStates(aomsState);
         }
-        break;
-        default:
-            break;
-    }
 }
 
 void OMAnimatedDataProcessingAndAnalyticsSubsystem::Processing_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.Processing");
-}
-
-void OMAnimatedDataProcessingAndAnalyticsSubsystem::Idle_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.Idle");
 }
 //#]
 

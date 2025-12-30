@@ -193,10 +193,6 @@ public :
     // Processing:
     //## statechart_method
     inline RhpBoolean Processing_IN(void) const;
-    
-    // Idle:
-    //## statechart_method
-    inline RhpBoolean Idle_IN(void) const;
 
 protected :
 
@@ -211,8 +207,7 @@ protected :
 //#[ ignore
     enum DataProcessingAndAnalyticsSubsystem_Enum {
         OMNonState = 0,
-        Processing = 1,
-        Idle = 2
+        Processing = 1
     };
 //#]
 
@@ -243,9 +238,6 @@ public :
     
     //## statechart_method
     void Processing_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
-    void Idle_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
@@ -256,10 +248,6 @@ inline RhpBoolean DataProcessingAndAnalyticsSubsystem::rootState_IN(void) const 
 
 inline RhpBoolean DataProcessingAndAnalyticsSubsystem::Processing_IN(void) const {
     return rootState_subState == Processing;
-}
-
-inline RhpBoolean DataProcessingAndAnalyticsSubsystem::Idle_IN(void) const {
-    return rootState_subState == Idle;
 }
 
 #endif

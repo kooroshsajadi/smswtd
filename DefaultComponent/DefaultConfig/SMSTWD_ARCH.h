@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Sat, 27, Dec 2025  
+//!	Generated Date	: Sun, 28, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.h
 *********************************************************************/
 
@@ -490,6 +490,34 @@ class OMAnimatedchAircraftsDataFlow : virtual public AOMEvent {
 
 //#[ ignore
 extern const IOxfEvent::ID chAircraftsDataFlow_SMSTWD_ARCH_id;
+//#]
+
+//## event turnOn()
+class turnOn : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedturnOn;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    turnOn(void);
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedturnOn : virtual public AOMEvent {
+    DECLARE_META_EVENT(turnOn)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//#[ ignore
+extern const IOxfEvent::ID turnOn_SMSTWD_ARCH_id;
 //#]
 
 #endif

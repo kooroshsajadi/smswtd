@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Sat, 27, Dec 2025  
+//!	Generated Date	: Sun, 28, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.cpp
 *********************************************************************/
 
@@ -316,6 +316,7 @@ SMSWTD::SMSWTD(IOxfActive* const theActiveContext) : OMReactive(), itsAircraftSe
             itsSecurityAndAccessControl.setShouldDelete(false);
         }
     }
+    initRelations();
     initStatechart();
 }
 
@@ -365,14 +366,9 @@ void SMSWTD::getAircraftData(void) {
     
     aircraftData data = OUT_PORT(port_Aircraft)->returnAircraftSensorsData();
     
-    setAircraftsData(data);
+    //setAircraftsData(data);
     
     setAircraftsDataFlow(data);
-    
-    //this->atmosphericPressure = data.atmosphericPressure;
-    //this->precipitationType = data.precipitationType;
-    //this->temperature = data.temperature;
-    //this->windSpeed = data.windSpeed;
     //#]
 }
 
@@ -384,7 +380,7 @@ void SMSWTD::getUnderwaterData(void) {
     
     underwaterSensorData data = OUT_PORT(port_Ocean)->returnUnderwaterSensorsData();
     
-    setUnderwaterData(data);
+    //setUnderwaterData(data);
     
     setUnderwaterDataFlow(data);
     //#]
@@ -426,56 +422,8 @@ aircraftData const SMSWTD::getAircraftsDataFlow(void) const {
     return aircraftsDataFlow;
 }
 
-int const SMSWTD::getAtmosphericPressure(void) const {
-    return atmosphericPressure;
-}
-
-void SMSWTD::setAtmosphericPressure(const int p_atmosphericPressure) {
-    atmosphericPressure = p_atmosphericPressure;
-}
-
-int const SMSWTD::getHorizontalAcceleration(void) const {
-    return horizontalAcceleration;
-}
-
-void SMSWTD::setHorizontalAcceleration(const int p_horizontalAcceleration) {
-    horizontalAcceleration = p_horizontalAcceleration;
-}
-
-int const SMSWTD::getPrecipitationType(void) const {
-    return precipitationType;
-}
-
-void SMSWTD::setPrecipitationType(const int p_precipitationType) {
-    precipitationType = p_precipitationType;
-}
-
-int const SMSWTD::getTemperature(void) const {
-    return temperature;
-}
-
-void SMSWTD::setTemperature(const int p_temperature) {
-    temperature = p_temperature;
-}
-
 underwaterSensorData const SMSWTD::getUnderwaterDataFlow(void) const {
     return underwaterDataFlow;
-}
-
-int const SMSWTD::getVerticalAcceleration(void) const {
-    return verticalAcceleration;
-}
-
-void SMSWTD::setVerticalAcceleration(const int p_verticalAcceleration) {
-    verticalAcceleration = p_verticalAcceleration;
-}
-
-int const SMSWTD::getWindSpeed(void) const {
-    return windSpeed;
-}
-
-void SMSWTD::setWindSpeed(const int p_windSpeed) {
-    windSpeed = p_windSpeed;
 }
 
 const AircraftSensorNetwork* SMSWTD::getItsAircraftSensorNetwork(void) const {
@@ -573,6 +521,16 @@ bool SMSWTD::startBehavior(void) {
     return done;
 }
 
+void SMSWTD::initRelations(void) {
+    {
+        
+        get_port_Analytics()->setItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem.get_port_Analytics()->getItsUnderwaterSensorData_underwaterDataFlow_ProxyFlowPropertyInterface());
+        
+        get_port_Analytics()->setItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface(itsDataProcessingAndAnalyticsSubsystem.get_port_Analytics()->getItsAircraftData_aircraftsDataFlow_ProxyFlowPropertyInterface());
+        
+    }
+}
+
 void SMSWTD::initStatechart(void) {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
@@ -624,34 +582,6 @@ void SMSWTD::cleanUpRelations(void) {
 
 void SMSWTD::cancelTimeouts(void) {
     cancel(rootState_timeout);
-}
-
-aircraftData const SMSWTD::getAircraftsData(void) const {
-    return AircraftsData;
-}
-
-void SMSWTD::setAircraftsData(const aircraftData p_AircraftsData) {
-    AircraftsData = p_AircraftsData;
-}
-
-bool const SMSWTD::getIsRunning(void) const {
-    return isRunning;
-}
-
-void SMSWTD::setIsRunning(const bool p_isRunning) {
-    isRunning = p_isRunning;
-}
-
-char* const SMSWTD::getSystemId(void) const {
-    return systemId;
-}
-
-void SMSWTD::setSystemId(char* const p_systemId) {
-    systemId = p_systemId;
-}
-
-void SMSWTD::setUnderwaterData(const underwaterSensorData p_underwaterData) {
-    underwaterData = p_underwaterData;
 }
 
 void SMSWTD::__setItsAircraftSensorNetwork(AircraftSensorNetwork* const p_AircraftSensorNetwork) {
@@ -788,7 +718,7 @@ IOxfReactive::TakeEventStatus SMSWTD::rootState_processEvent(void) {
         // State Off
         case Off:
         {
-            if(IS_EVENT_TYPE_OF(turn_on_SMSTWD_ARCH_id) == 1)
+            if(IS_EVENT_TYPE_OF(turnOn_SMSTWD_ARCH_id) == 1)
                 {
                     NOTIFY_TRANSITION_STARTED("1");
                     NOTIFY_STATE_EXITED("ROOT.Off");
@@ -864,16 +794,6 @@ IOxfReactive::TakeEventStatus SMSWTD::rootState_processEvent(void) {
 #ifdef _OMINSTRUMENT
 //#[ ignore
 void OMAnimatedSMSWTD::serializeAttributes(AOMSAttributes* aomsAttributes) const {
-    aomsAttributes->addAttribute("systemId", x2String(myReal->systemId));
-    aomsAttributes->addAttribute("isRunning", x2String(myReal->isRunning));
-    aomsAttributes->addAttribute("verticalAcceleration", x2String(myReal->verticalAcceleration));
-    aomsAttributes->addAttribute("horizontalAcceleration", x2String(myReal->horizontalAcceleration));
-    aomsAttributes->addAttribute("atmosphericPressure", x2String(myReal->atmosphericPressure));
-    aomsAttributes->addAttribute("precipitationType", x2String(myReal->precipitationType));
-    aomsAttributes->addAttribute("temperature", x2String(myReal->temperature));
-    aomsAttributes->addAttribute("windSpeed", x2String(myReal->windSpeed));
-    aomsAttributes->addAttribute("underwaterData", UNKNOWN2STRING(myReal->underwaterData));
-    aomsAttributes->addAttribute("AircraftsData", UNKNOWN2STRING(myReal->AircraftsData));
     aomsAttributes->addAttribute("underwaterDataFlow", UNKNOWN2STRING(myReal->underwaterDataFlow));
     aomsAttributes->addAttribute("aircraftsDataFlow", UNKNOWN2STRING(myReal->aircraftsDataFlow));
 }

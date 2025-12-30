@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSTWD_ARCH
-//!	Generated Date	: Sat, 27, Dec 2025  
+//!	Generated Date	: Sun, 28, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
 *********************************************************************/
 
@@ -122,6 +122,12 @@
 #define chAircraftsDataFlow_UNSERIALIZE OM_NO_OP
 
 #define chAircraftsDataFlow_CONSTRUCTOR chAircraftsDataFlow()
+
+#define turnOn_SERIALIZE OM_NO_OP
+
+#define turnOn_UNSERIALIZE OM_NO_OP
+
+#define turnOn_CONSTRUCTOR turnOn()
 //#]
 
 //## package SMSTWD_ARCH
@@ -421,6 +427,18 @@ const IOxfEvent::ID chAircraftsDataFlow_SMSTWD_ARCH_id(18613);
 //#]
 
 IMPLEMENT_META_EVENT_P(chAircraftsDataFlow, SMSTWD_ARCH, SMSTWD_ARCH, chAircraftsDataFlow())
+
+//## event turnOn()
+turnOn::turnOn(void) : OMEvent() {
+    NOTIFY_EVENT_CONSTRUCTOR(turnOn)
+    setId(turnOn_SMSTWD_ARCH_id);
+}
+
+//#[ ignore
+const IOxfEvent::ID turnOn_SMSTWD_ARCH_id(18614);
+//#]
+
+IMPLEMENT_META_EVENT_P(turnOn, SMSTWD_ARCH, SMSTWD_ARCH, turnOn())
 
 /*********************************************************************
 	File Path	: DefaultComponent\DefaultConfig\SMSTWD_ARCH.cpp
