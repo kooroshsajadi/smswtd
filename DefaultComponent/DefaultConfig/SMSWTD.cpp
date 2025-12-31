@@ -4,7 +4,7 @@
 	Component	: DefaultComponent 
 	Configuration 	: DefaultConfig
 	Model Element	: SMSWTD
-//!	Generated Date	: Sun, 28, Dec 2025  
+//!	Generated Date	: Tue, 30, Dec 2025  
 	File Path	: DefaultComponent\DefaultConfig\SMSWTD.cpp
 *********************************************************************/
 
@@ -366,8 +366,6 @@ void SMSWTD::getAircraftData(void) {
     
     aircraftData data = OUT_PORT(port_Aircraft)->returnAircraftSensorsData();
     
-    //setAircraftsData(data);
-    
     setAircraftsDataFlow(data);
     //#]
 }
@@ -379,8 +377,6 @@ void SMSWTD::getUnderwaterData(void) {
     OUT_PORT(port_Ocean)->GEN(redoSensing());
     
     underwaterSensorData data = OUT_PORT(port_Ocean)->returnUnderwaterSensorsData();
-    
-    //setUnderwaterData(data);
     
     setUnderwaterDataFlow(data);
     //#]
