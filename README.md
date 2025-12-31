@@ -1,19 +1,25 @@
-# SMSWTD – SysML Requirements Model
+# Smart Monitoring System for Weather and Tsunami Detection (SMSWTD)
 
-This repository contains the SysML requirements model for the **Smart Monitoring System for Weather and Tsunami Detection (SMSWTD)**. The model captures the system’s functional and non‑functional requirements following a V‑Model systems engineering approach. [file:37]
+This project is a simple implementation of the **SMSWTD system**, modeled using **IBM Rhapsody**. It demonstrates the structure and behavior of the system’s components within the Rhapsody environment, showcasing their **relationships**, **communications**, and **functionalities**.  
+
+The model serves as an illustrative example of how system code, logic, and architecture can be represented and integrated in a model-driven engineering context. Additional explanations, design details, and implementation notes are provided in the following sections.
+
+## SMSWTD – SysML Requirements Model
+
+This repository contains the SysML requirements model for the **Smart Monitoring System for Weather and Tsunami Detection (SMSWTD)**. The model captures the system’s functional and non‑functional requirements following a V‑Model systems engineering approach.
 
 ## Current contents
 
 - **Rhapsody project** for SMSWTD  
   - Requirements organized under a top‑level system requirement (REQ‑001) and grouped into:
-    - **Functional requirements** (REQ‑010): data collection (REQ‑100/101–104), data processing (REQ‑200/201–204), and risk assessment & early warning (REQ‑300/301–304). [file:37]  
-    - **Non‑functional requirements** (REQ‑020): quality attributes including real‑time performance, availability, accuracy, multilingual support, scalability, and security (REQ‑401–406). [file:37]  
+    - **Functional requirements** (REQ‑010): data collection (REQ‑100/101–104), data processing (REQ‑200/201–204), and risk assessment & early warning (REQ‑300/301–304).
+    - **Non‑functional requirements** (REQ‑020): quality attributes including real‑time performance, availability, accuracy, multilingual support, scalability, and security (REQ‑401–406).
   - SysML requirement stereotypes for:
     - System, functional, and non‑functional requirements  
     - Functional subgroups: dataCollectionReq, dataProcessingReq, riskAssessmentReq  
     - Performance‑related NFRs (e.g., latency and scalability)
 
 - **Requirements diagrams**
-  - `REQ_Func_SMSWTD`: functional requirements hierarchy and refinement from top‑level functional requirements down to detailed behaviors. [file:37]  
-  - `REQ_NonFunc_SMSWTD`: non‑functional requirements and their grouping under the quality requirements node. [file:37]  
+  - `REQ_Func_SMSWTD`: functional requirements hierarchy and refinement from top‑level functional requirements down to detailed behaviors.
+  - `REQ_NonFunc_SMSWTD`: non‑functional requirements and their grouping under the quality requirements node.
   - Cross‑links (trace dependencies) from key functional requirements (e.g., real‑time updates and early warnings) to performance and other quality requirements.
